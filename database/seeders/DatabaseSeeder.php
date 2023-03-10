@@ -17,8 +17,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\Subcategory::factory(5)->create();
         \App\Models\Genre::factory(5)->create();
         \App\Models\CategorySubcategoryGenreMap::factory()->create();
-        // \App\Models\User::factory(10)->create();
-        // \App\Models\User::factory(10)->create();
+        \App\Models\CategorySubcategoryGenreMap::factory()->create();
+        \App\Models\Content::factory(15)->create();
+        \App\Models\ContentMedia::factory(15)->create();
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

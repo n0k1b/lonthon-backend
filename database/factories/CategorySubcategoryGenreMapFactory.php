@@ -17,9 +17,9 @@ class CategorySubcategoryGenreMapFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => factory(App\Models\Category::class)->create()->id,
-            'subcategory_id' => factory(App\Models\SubCategory::class)->create()->id,
-            'genre_id' => factory(App\Models\Genre::class)->create()->id,
+            'category_id' => fake()->randomElement(\App\Models\Category::all()->pluck('id')->toArray()),
+            'subcategory_id' => fake()->randomElement(\App\Models\SubCategory::all()->pluck('id')->toArray()),
+            'genre_id' => fake()->randomElement(\App\Models\Genre::all()->pluck('id')->toArray()),
         ];
     }
 }

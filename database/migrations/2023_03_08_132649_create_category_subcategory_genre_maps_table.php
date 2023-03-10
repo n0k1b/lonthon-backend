@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_subcategory_genre_map', function (Blueprint $table) {
+        Schema::create('category_subcategory_genre_maps', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('subcategory_id');
