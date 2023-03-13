@@ -12,6 +12,6 @@ class Category extends Model
 
     public function subcategories()
     {
-        return $this->hasMany(Subcategory::class, 'subcategory_id', 'id');
+        return $this->hasMany(CategorySubcategoryGenreMap::class, 'category_id', 'id');
     }
 }
