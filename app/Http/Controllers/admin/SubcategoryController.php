@@ -11,8 +11,8 @@ class SubcategoryController extends Controller
 {
     public function insert(SubcategoryRequest $request)
     {
-        Subcategory::create($request->all());
-        return redirect('/admin/subcategory/all');
+        Subcategory::create($request->except('_token'));
+        return redirect('/subcategory');
     }
 
     public function create()
@@ -22,12 +22,12 @@ class SubcategoryController extends Controller
 
     public function show()
     {
-        return view('admin.subcategory.show')->with("subcategories", Subcategory::paginate(5));
+        return view('admin.subcategory.show')->with("subcategories", Subcategory::orderByDesc('id')->paginate(5));
     }
 
     public function trash()
     {
-        return view('admin.subcategory.trash')->with("subcategories", Subcategory::withTrashed()->paginate(5));
+        return view('admin.subcategory.trash')->with("subcategories", Subcategory::onlyTrashed()->paginate(5));
     }
 
     public function restore($id)
@@ -55,12 +55,12 @@ class SubcategoryController extends Controller
         return view("admin.subcategory.edit",["subcategory"=>Subcategory::find($id)]);
     }
 
-    public function update(SubcategoryRequest $req, $id)
+    public function update(Request $req, $id)
     {
         $cat = Subcategory::find($id);
         $cat->name = $req->name;
         $cat->description = $req->description;
         $cat->update();
-        return redirect('/admin/subcategory/all');
+        return redirect('subcategory');
     }
 }

@@ -3,11 +3,11 @@
 @section('page-content')
     <div class="page-header">
         <h3 class="page-title">
-            Genre
+            Content
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Genre</a></li>
+                <li class="breadcrumb-item"><a href="#">Content</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Form</li>
             </ol>
         </nav>
@@ -16,10 +16,11 @@
         <div class="col-md-6 grid-margin stretch-card m-auto">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Create Genre</h4>
+                    <h4 class="card-title">Create Content</h4>
                     <p class="card-description"></p>
-                    <form class="forms-sample" action="{{ route('genre-inserting') }}" method="post">
+                    <form class="forms-sample" action="{{ route('content-inserting') }}" method="post">
                         @csrf
+                        {{-- <p>{{$categories}}</p> --}}
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>

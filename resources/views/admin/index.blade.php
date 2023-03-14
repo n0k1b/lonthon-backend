@@ -409,7 +409,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../../index-2.html">
+                        <a class="nav-link" href="{{url('/')}}">
                             <i class="fa fa-home menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -441,11 +441,11 @@
                         <div class="collapse" id="category-layouts">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('admin/category/all')}}">All Categories</a></li>
+                                        href="{{url('categories')}}">All Categories</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('admin/category/create')}}">Create Categories</a></li>
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('admin/category/trash')}}">Trash Categories</a></li>
+                                        href="{{url('create-cat')}}">Create Categories</a></li>
+                                {{-- <li class="nav-item"> <a class="nav-link"
+                                        href="{{url('category/trash')}}">Trash Categories</a></li> --}}
                             </ul>
                         </div>
                     </li>
@@ -459,33 +459,47 @@
                         <div class="collapse" id="subcategory-layouts">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('admin/subcategory/all')}}">All Subcategories</a></li>
+                                        href="{{url('subcategory')}}">All Subcategories</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('admin/subcategory/create')}}">Create Subcategories</a></li>
+                                        href="{{url('create-sub')}}">Create Subcategories</a></li>
                                 {{-- <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('admin/subcategory/trash')}}">Trash Subcategories</a></li> --}}
+                                        href="{{url('subcategory/trash')}}">Trash Subcategories</a></li> --}}
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" data-toggle="collapse" href="#sidebar-layouts" aria-expanded="false"
-                            aria-controls="sidebar-layouts">
-                            <i class="fas fa-columns menu-icon"></i>
-                            <span class="menu-title">Sidebar Layouts</span>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#genre-layouts" aria-expanded="false"
+                            aria-controls="genre-layouts">
+                            <i class="fab fa-trello menu-icon"></i>
+                            <span class="menu-title">Genre</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        <div class="collapse" id="sidebar-layouts">
+                        <div class="collapse" id="genre-layouts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="../layout/compact-menu.html">Compact
-                                        menu</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../layout/sidebar-collapsed.html">Icon
-                                        menu</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../layout/sidebar-hidden.html">Sidebar
-                                        Hidden</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="../layout/sidebar-hidden-overlay.html">Sidebar Overlay</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="../layout/sidebar-fixed.html">Sidebar
-                                        Fixed</a></li>
+                                        href="{{url('genre')}}">View Genre</a></li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="{{url('create-gen')}}">Create Genre</a></li>
+                                {{-- <li class="nav-item"> <a class="nav-link"
+                                        href="{{url('subcategory/trash')}}">Trash Subcategories</a></li> --}}
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#content-layouts" aria-expanded="false"
+                            aria-controls="content-layouts">
+                            <i class="fab fa-trello menu-icon"></i>
+                            <span class="menu-title">Content</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="content-layouts">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="{{url('content')}}">View Contents</a></li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="{{url('create-cont')}}">Create Content</a></li>
+                                {{-- <li class="nav-item"> <a class="nav-link"
+                                        href="{{url('subcategory/trash')}}">Trash Subcategories</a></li> --}}
                             </ul>
                         </div>
                     </li>

@@ -2,176 +2,61 @@
 @section('page-content')
     <div class="page-header">
         <h3 class="page-title">
-            Data table
+            Genre
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data table</li>
+                <li class="breadcrumb-item"><a href="#">Genre</a></li>
+                <li class="breadcrumb-item active" aria-current="page">All</li>
             </ol>
         </nav>
     </div>
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Data table</h4>
+            <h4 class="card-title">Genre Table</h4>
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive">
                         <table id="order-listing" class="table">
                             <thead>
                                 <tr>
-                                    <th>Order #</th>
-                                    <th>Purchased On</th>
-                                    <th>Customer</th>
-                                    <th>Ship to</th>
-                                    <th>Base Price</th>
-                                    <th>Purchased Price</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>No #</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>#</th>
+                                    <th>#</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2012/08/03</td>
-                                    <td>Edinburgh</td>
-                                    <td>New York</td>
-                                    <td>$1500</td>
-                                    <td>$3200</td>
-                                    <td>
-                                        <label class="badge badge-info">On hold</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>2015/04/01</td>
-                                    <td>Doe</td>
-                                    <td>Brazil</td>
-                                    <td>$4500</td>
-                                    <td>$7500</td>
-                                    <td>
-                                        <label class="badge badge-danger">Pending</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>2010/11/21</td>
-                                    <td>Sam</td>
-                                    <td>Tokyo</td>
-                                    <td>$2100</td>
-                                    <td>$6300</td>
-                                    <td>
-                                        <label class="badge badge-success">Closed</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>2016/01/12</td>
-                                    <td>Sam</td>
-                                    <td>Tokyo</td>
-                                    <td>$2100</td>
-                                    <td>$6300</td>
-                                    <td>
-                                        <label class="badge badge-success">Closed</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>2017/12/28</td>
-                                    <td>Sam</td>
-                                    <td>Tokyo</td>
-                                    <td>$2100</td>
-                                    <td>$6300</td>
-                                    <td>
-                                        <label class="badge badge-success">Closed</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>2000/10/30</td>
-                                    <td>Sam</td>
-                                    <td>Tokyo</td>
-                                    <td>$2100</td>
-                                    <td>$6300</td>
-                                    <td>
-                                        <label class="badge badge-info">On-hold</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>2011/03/11</td>
-                                    <td>Cris</td>
-                                    <td>Tokyo</td>
-                                    <td>$2100</td>
-                                    <td>$6300</td>
-                                    <td>
-                                        <label class="badge badge-success">Closed</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>2015/06/25</td>
-                                    <td>Tim</td>
-                                    <td>Italy</td>
-                                    <td>$6300</td>
-                                    <td>$2100</td>
-                                    <td>
-                                        <label class="badge badge-info">On-hold</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>2016/11/12</td>
-                                    <td>John</td>
-                                    <td>Tokyo</td>
-                                    <td>$2100</td>
-                                    <td>$6300</td>
-                                    <td>
-                                        <label class="badge badge-success">Closed</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>2003/12/26</td>
-                                    <td>Tom</td>
-                                    <td>Germany</td>
-                                    <td>$1100</td>
-                                    <td>$2300</td>
-                                    <td>
-                                        <label class="badge badge-danger">Pending</label>
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-primary">View</button>
-                                    </td>
-                                </tr>
+                                @foreach ($genres as $genre)
+                                    <tr>
+                                        <td>{{ $genre->id }}</td>
+                                        <td>{{ $genre->name }}</td>
+                                        <td>{{ $genre->description }}</td>
+                                        <td>
+                                            <a href="{{ route('genre-editing', ['id' => $genre->id]) }}"
+                                                class="btn btn-outline-primary">Edit</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('genre-deleting', ['id' => $genre->id]) }}"
+                                                class="btn btn-outline-danger">Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        @if ($genres->currentPage() != 0 && $genres->previousPageUrl())
+                                            <a href="{{ $genres->previousPageUrl() }}"
+                                                class="btn btn-primary">Previous</a>
+                                        @endif
+                                        @if ($genres->hasMorePages())
+                                            <a href="{{ $genres->nextPageUrl() }}" class="btn btn-primary">Next</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

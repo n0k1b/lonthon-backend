@@ -20,10 +20,10 @@ class ContentFactory extends Factory
             'category_sub_category_map_id' => fake()->randomElement(CategorySubcategoryGenreMap::all()->pluck('id')->toArray()),
             'title' => fake()->sentence(),
             'thumbnail_image' => fake()->imageUrl(),
-            'feature_image' => fake()->imageUrl(),
+            'feature_image' => fake()->randomElement(["image-1.jpg","image-2.jpg","image-3.jpg","image-4.jpg","image-5.jpg","image-6.jpg","image-7.jpg"]),
             'summary' => fake()->paragraph(),
             'statues' => fake()->boolean(),
-            'price' => fake()->randomNumber(),
+            'price' => fake()->randomNumber(4),
             'type' => fake()->numberBetween(0, 2),
         ];
     }

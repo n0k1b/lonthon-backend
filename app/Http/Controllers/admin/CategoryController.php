@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function insert(CategoryRequest $request)
     {
         Category::create($request->all());
-        return redirect('/admin/category/all');
+        return redirect('/categories');
     }
 
     public function create()
@@ -22,12 +22,12 @@ class CategoryController extends Controller
 
     public function show()
     {
-        return view('admin.category.show')->with("categories", Category::paginate(5));
+        return view('admin.category.show')->with("categories", Category::orderByDesc('id')->paginate(5));
     }
 
     public function trash()
     {
-        return view('admin.category.trash')->with("categories", Category::withTrashed()->paginate(5));
+        return view('admin.category.trash')->with("categories", Category::onlyTrashed()->paginate(5));
     }
 
     public function restore($id)
@@ -61,6 +61,6 @@ class CategoryController extends Controller
         $cat->name = $req->name;
         $cat->description = $req->description;
         $cat->update();
-        return redirect('/admin/category/all');
+        return redirect('categories');
     }
 }
