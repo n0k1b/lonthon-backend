@@ -33,7 +33,6 @@ class ContentController extends Controller
     public function create()
     {
         return view('admin.content.insert');
-        return "heda";
     }
 
     public function show()
