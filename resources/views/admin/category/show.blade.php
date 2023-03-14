@@ -44,7 +44,7 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
+                            {{-- <tfoot>
                                 <tr>
                                     <td>
                                         @if ($categories->currentPage() != 0 && $categories->previousPageUrl())
@@ -56,7 +56,7 @@
                                         @endif
                                     </td>
                                 </tr>
-                            </tfoot>
+                            </tfoot> --}}
                         </table>
                     </div>
                 </div>

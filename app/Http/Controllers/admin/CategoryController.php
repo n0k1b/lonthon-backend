@@ -9,6 +9,11 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    public function contentCat()
+    {
+        return json_encode(Category::orderByDesc('id')->get());
+    }
+
     public function insert(CategoryRequest $request)
     {
         Category::create($request->all());
@@ -22,12 +27,12 @@ class CategoryController extends Controller
 
     public function show()
     {
-        return view('admin.category.show')->with("categories", Category::orderByDesc('id')->paginate(5));
+        return view('admin.category.show')->with("categories", Category::orderByDesc('id')->get());
     }
 
     public function trash()
     {
-        return view('admin.category.trash')->with("categories", Category::onlyTrashed()->paginate(5));
+        return view('admin.category.trash')->with("categories", Category::onlyTrashed()->get());
     }
 
     public function restore($id)

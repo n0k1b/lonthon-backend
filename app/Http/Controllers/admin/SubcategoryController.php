@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class SubcategoryController extends Controller
 {
+    public function contentSubcat()
+    {
+        return json_encode(Subcategory::orderByDesc('id')->get());
+    }
     public function insert(SubcategoryRequest $request)
     {
         Subcategory::create($request->except('_token'));
@@ -22,12 +26,12 @@ class SubcategoryController extends Controller
 
     public function show()
     {
-        return view('admin.subcategory.show')->with("subcategories", Subcategory::orderByDesc('id')->paginate(5));
+        return view('admin.subcategory.show')->with("subcategories", Subcategory::orderByDesc('id')->get());
     }
 
     public function trash()
     {
-        return view('admin.subcategory.trash')->with("subcategories", Subcategory::onlyTrashed()->paginate(5));
+        return view('admin.subcategory.trash')->with("subcategories", Subcategory::onlyTrashed()->get());
     }
 
     public function restore($id)

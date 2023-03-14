@@ -393,7 +393,7 @@
             <!-- partial:../../partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    <li class="nav-item nav-profile">
+                    {{-- <li class="nav-item nav-profile">
                         <div class="nav-link">
                             <div class="profile-image">
                                 <img src="{{ asset('assets/images/faces/face5.jpg') }}" alt="image" />
@@ -407,9 +407,9 @@
                                 </p>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/')}}">
+                        <a class="nav-link" href="{{ url('/') }}">
                             <i class="fa fa-home menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -440,10 +440,10 @@
                         </a>
                         <div class="collapse" id="category-layouts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('categories')}}">All Categories</a></li>
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('create-cat')}}">Create Categories</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('categories') }}">All
+                                        Categories</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('create-cat') }}">Create
+                                        Categories</a></li>
                                 {{-- <li class="nav-item"> <a class="nav-link"
                                         href="{{url('category/trash')}}">Trash Categories</a></li> --}}
                             </ul>
@@ -458,10 +458,10 @@
                         </a>
                         <div class="collapse" id="subcategory-layouts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('subcategory')}}">All Subcategories</a></li>
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('create-sub')}}">Create Subcategories</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('subcategory') }}">All
+                                        Subcategories</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('create-sub') }}">Create
+                                        Subcategories</a></li>
                                 {{-- <li class="nav-item"> <a class="nav-link"
                                         href="{{url('subcategory/trash')}}">Trash Subcategories</a></li> --}}
                             </ul>
@@ -476,10 +476,9 @@
                         </a>
                         <div class="collapse" id="genre-layouts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('genre')}}">View Genre</a></li>
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('create-gen')}}">Create Genre</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('genre') }}">View Genre</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('create-gen') }}">Create
+                                        Genre</a></li>
                                 {{-- <li class="nav-item"> <a class="nav-link"
                                         href="{{url('subcategory/trash')}}">Trash Subcategories</a></li> --}}
                             </ul>
@@ -494,10 +493,10 @@
                         </a>
                         <div class="collapse" id="content-layouts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('content')}}">View Contents</a></li>
-                                <li class="nav-item"> <a class="nav-link"
-                                        href="{{url('create-cont')}}">Create Content</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('content') }}">View Contents</a>
+                                </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('create-cont') }}">Create
+                                        Content</a></li>
                                 {{-- <li class="nav-item"> <a class="nav-link"
                                         href="{{url('subcategory/trash')}}">Trash Subcategories</a></li> --}}
                             </ul>
@@ -527,3 +526,6 @@
         <!-- page-body-wrapper ends -->
     </div>
 @endsection
+
+{{-- @section('page-js')
+@endsection --}}

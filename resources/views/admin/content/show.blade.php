@@ -26,6 +26,10 @@
                     <p class="card-text">Genre : {{ $content->map->genre->name }}</p>
                     <p class="card-text">{{ $content->summary }}</p>
                 </div>
+                <div class="card-footer">
+                    <a href="{{ route('content-deleting', ['id' => $content->id]) }}"
+                        class="btn btn-outline-danger">Delete</a>
+                </div>
             </div>
         @endforeach
     </div>

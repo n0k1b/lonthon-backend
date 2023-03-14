@@ -22,7 +22,14 @@ class ContentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'=>'required|max:60',
+            'category'=>'required',
+            'subcategory'=>'required',
+            'genre'=>'required',
+            // 'feature_image'=>'required',
+            // 'thumbnail_image'=>'required',
+            'summary'=>'required',
+            'price'=>'required'
         ];
     }
 }

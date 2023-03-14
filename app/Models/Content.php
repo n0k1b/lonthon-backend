@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Content extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     /**
      * Get the category that owns the Content
      *

@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
+    public function contentGen()
+    {
+        return json_encode(Genre::orderByDesc('id')->get());
+    }
+
     public function insert(GenreRequest $request)
     {
         Genre::create($request->except('_token'));
@@ -22,12 +27,12 @@ class GenreController extends Controller
 
     public function show()
     {
-        return view('admin.genre.show')->with("genres", Genre::orderByDesc('id')->paginate(5));
+        return view('admin.genre.show')->with("genres", Genre::orderByDesc('id')->get());
     }
 
     public function trash()
     {
-        return view('admin.genre.trash')->with("genres", Genre::onlyTrashed()->paginate(5));
+        return view('admin.genre.trash')->with("genres", Genre::onlyTrashed()->get());
     }
 
     public function restore($id)

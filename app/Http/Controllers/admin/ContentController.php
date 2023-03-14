@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContentRequest;
-use App\Models\Category;
+use App\Models\CategorySubcategoryGenreMap;
 use App\Models\Content;
 use Illuminate\Http\Request;
 
@@ -12,14 +12,28 @@ class ContentController extends Controller
 {
     public function insert(ContentRequest $request)
     {
-        Content::create($request->all());
-        return redirect('/contents');
+        $request["type"] = $request->type ? 1 : 0;
+        $request["statues"] = $request->statues ? 1 : 0;
+
+        // $file = $request->file('feature_image');
+        // $fileName = $request->id . '-feature_image-' . $request->title . '.' . $file->getClientOriginalExtension();
+        // $request['feature_image'] = $file->storeAs('images', $fileName, 'public/');
+
+        // $file = $request->file('thumbnail_image');
+        // $fileName = $request->id . '-thumbnail_image-' . $request->title . '.' . $file->getClientOriginalExtension();
+        // $request['thumbnail_image'] = $file->storeAs('images', $fileName, 'public/');
+
+        $request['category_sub_category_map_id'] = CategorySubcategoryGenreMap::create(['category_id' => $request->category, 'subcategory_id' => $request->subcategory, 'genre_id' => $request->genre])->id;
+        $request['feature_image'] = 'image-1.jpg';
+        $request['thumbnail_image'] = 'image-1.jpg';
+        Content::create($request->except(['category','subcategory','genre']));
+        return redirect('content');
     }
 
     public function create()
     {
-        // working on it
-        // return view('admin.content.insert')->with(["categories"=>Category::with('subcategories')->with('genres')]);
+        return view('admin.content.insert');
+        return "heda";
     }
 
     public function show()
@@ -54,7 +68,7 @@ class ContentController extends Controller
 
     public function edit($id)
     {
-        return view("admin.content.edit",["content"=>Content::find($id)]);
+        return view("admin.content.edit", ["content" => Content::find($id)]);
     }
 
     public function update(ContentRequest $req, $id)
