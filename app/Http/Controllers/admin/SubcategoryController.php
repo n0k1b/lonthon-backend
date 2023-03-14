@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class SubcategoryController extends Controller
 {
+    public function contentSubcat()
+    {
+        return json_encode(Subcategory::orderByDesc('id')->get());
+    }
     public function insert(SubcategoryRequest $request)
     {
         Subcategory::create($request->except('_token'));

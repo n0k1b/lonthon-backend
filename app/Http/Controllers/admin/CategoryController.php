@@ -9,6 +9,11 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    public function contentCat()
+    {
+        return json_encode(Category::orderByDesc('id')->get());
+    }
+
     public function insert(CategoryRequest $request)
     {
         Category::create($request->all());

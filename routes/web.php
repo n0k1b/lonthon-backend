@@ -34,6 +34,7 @@ use App\Http\Controllers\admin\SubcategoryController;
     });
 
     // category
+    Route::get('/category-for-content',[CategoryController::class, "contentCat"]);
     Route::get('/categories', [CategoryController::class, "show"]);
     Route::get('/create-cat', [CategoryController::class, "create"]);
     Route::prefix('/category')->group(function () {
@@ -47,6 +48,7 @@ use App\Http\Controllers\admin\SubcategoryController;
     });
 
     // subcategory
+    Route::get('/subcategory-for-content',[SubcategoryController::class, "contentSubcat"]);
     Route::get('/subcategory', [SubcategoryController::class, "show"]);
     Route::get('/create-sub', [SubcategoryController::class, "create"]);
     Route::prefix('/subcategory')->group(function () {
@@ -60,6 +62,7 @@ use App\Http\Controllers\admin\SubcategoryController;
     });
 
     // genre
+    Route::get('/genre-for-content',[GenreController::class, "contentGen"]);
     Route::get('/genre', [GenreController::class, "show"]);
     Route::get('/create-gen', [GenreController::class, "create"]);
     Route::prefix('/genres')->group(function () {

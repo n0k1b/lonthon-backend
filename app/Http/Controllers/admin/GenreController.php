@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
+    public function contentGen()
+    {
+        return json_encode(Genre::orderByDesc('id')->get());
+    }
+
     public function insert(GenreRequest $request)
     {
         Genre::create($request->except('_token'));

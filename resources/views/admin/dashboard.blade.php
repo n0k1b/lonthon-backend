@@ -614,4 +614,5 @@
 @endsection
 
 @section('page-js')
+    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 @endsection
