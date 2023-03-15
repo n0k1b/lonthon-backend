@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Content::factory(15)->create();
         \App\Models\ContentMedia::factory(15)->create();
 
-
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
