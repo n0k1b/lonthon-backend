@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subcategory extends Model
 {
     use HasFactory;
-    protected $gurarded = [];
+    use SoftDeletes;
+    protected $guarded = [];
 
     /**
      * Get all of the genre for the Subcategory

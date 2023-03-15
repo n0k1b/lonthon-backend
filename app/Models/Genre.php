@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Genre extends Model
 {
     use HasFactory;
-
+    protected $guarded = [];
     /**
      * Get all of the content for the Genre
      *
