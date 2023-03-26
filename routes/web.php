@@ -6,6 +6,8 @@ use App\Http\Controllers\admin\ContentController;
 use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\SubcategoryController;
 
+use App\Http\Controllers\BusinessSettingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +21,17 @@ use App\Http\Controllers\admin\SubcategoryController;
 
     Route::get('/',function () { return view("admin.dashboard"); });
 
+    // business settings
+    Route::prefix('settings')->group(function () {
+        Route::prefix('text')->group(function () {
+            Route::get('/', [BusinessSettingController::class, "textEdit"]);
+            Route::post('/update', [BusinessSettingController::class, "textUpdate"]);
+        });
+        Route::prefix('media')->group(function () {
+            Route::get('/', [BusinessSettingController::class, "mediaEdit"]);
+            Route::post('/update', [BusinessSettingController::class, "mediaUpdate"]);
+        });
+    });
 
     // contents
     Route::get('/content',[ContentController::class,"show"]);
