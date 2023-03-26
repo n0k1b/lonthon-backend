@@ -17,13 +17,13 @@ class BusinessSettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'favicon' => $this->faker->imageUrl(16, 16),
-            'homepage_banner_image' => $this->faker->imageUrl(640, 480),
+            'favicon' => "settings/favicon.ico",
+            'homepage_banner_image' => "settings/homepage_banner_image.jpg",
             'homepage_title' => $this->faker->sentence,
             'homepage_description' => $this->faker->paragraph,
-            'homepage_promotional_banner1' => $this->faker->imageUrl(640, 480),
-            'homepage_promotional_banner2' => $this->faker->imageUrl(640, 480),
-            'logo' => $this->faker->imageUrl(200, 200),
+            'homepage_promotional_banner1' => "settings/homepage_promotional_banner1.jpg",
+            'homepage_promotional_banner2' => "settings/homepage_promotional_banner2.jpg",
+            'logo' => "settings/logo.png",
             'about_us' => $this->faker->paragraph,
             'email' => $this->faker->safeEmail,
             'contact_info1' => $this->faker->sentence,
