@@ -17,7 +17,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="http://www.urbanui.com/" />
+    <link rel="shortcut icon" href="{{asset('storage/settings/favicon.ico')}}" type="image/x-icon">
 </head>
 
 <body>
