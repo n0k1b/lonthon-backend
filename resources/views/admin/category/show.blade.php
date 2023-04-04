@@ -13,7 +13,10 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Category Table</h4>
+            <div class="page-header">
+                <h4 class="card-title">Category Table</h4>
+                <a class="btn btn-primary" href="{{url('create-cat')}}">Create</a>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive">
