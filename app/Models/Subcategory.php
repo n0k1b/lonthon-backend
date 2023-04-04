@@ -17,8 +17,12 @@ class Subcategory extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id');
+    }
     public function genres()
     {
-        return $this->hasMany(CategorySubcategoryGenreMap::class, 'genre_id', 'id');
+        return $this->hasMany(Genre::class, 'genre_id', 'id');
     }
 }

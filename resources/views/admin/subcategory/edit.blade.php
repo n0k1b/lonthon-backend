@@ -13,7 +13,7 @@
         </nav>
     </div>
     <div class="row">
-        <div class="col-md-6 grid-margin stretch-card m-auto">
+        <div class="col-md-12 grid-margin stretch-card m-auto">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Update Subcategory</h4>
@@ -30,6 +30,11 @@
                             </div>
                         @endif
                         <div class="form-group">
+                            <label for="exampleInputUsername1">Category</label>
+                            <input name="category" type="text" class="form-control" id="exampleInputUsername1"
+                                placeholder="Category name" value="{{$subcategory->category->name}}" readonly>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputUsername1"
                                 placeholder="Category name" value="{{$subcategory->name}}">
@@ -44,4 +49,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // fetch("/category-for-content")
+        //     .then(x => x.json())
+        //     .then(categories => {
+        //         document.querySelector("#category").innerHTML += "<option value='{{$subcategory->category->id}}' selected>{{$subcategory->category->name}}</option>"
+        //         categories.filter(category => category.id!={{$subcategory->category->id}}).map(category => {
+        //             document.querySelector("#category").innerHTML += "<option value=" + category.id + ">" + category.name + "</option>"
+        //         })
+        //     });
+    </script>
 @endsection
+
+{{-- @section('page-js')
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
+@endsection --}}

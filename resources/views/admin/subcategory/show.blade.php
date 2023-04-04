@@ -13,7 +13,10 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Subcategory Table</h4>
+            <div class="page-header">
+                <h4 class="card-title">Subcategory Table</h4>
+                <a href="{{url('/create-sub')}}" class="btn btn-primary">Create</a>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="table-responsive">
@@ -21,6 +24,7 @@
                             <thead>
                                 <tr>
                                     <th>No #</th>
+                                    <th>Category</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>#</th>
@@ -31,6 +35,7 @@
                                 @foreach ($subcategories as $subcategory)
                                     <tr>
                                         <td>{{ $subcategory->id }}</td>
+                                        <td>{{ $subcategory->category?->name }}</td>
                                         <td>{{ $subcategory->name }}</td>
                                         <td>{{ $subcategory->description }}</td>
                                         <td>

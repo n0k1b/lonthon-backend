@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('category_subcategory_genre_maps', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('subcategory_id');
-            $table->unsignedBigInteger('genre_id');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('subcategory_id')->nullable();
+            $table->unsignedBigInteger('genre_id')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories');

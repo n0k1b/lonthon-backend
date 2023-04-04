@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubcategoryRequest;
 use App\Models\Subcategory;
+use App\Models\CategorySubcategoryGenreMap;
 use Illuminate\Http\Request;
 
 class SubcategoryController extends Controller
@@ -15,7 +16,8 @@ class SubcategoryController extends Controller
     }
     public function insert(SubcategoryRequest $request)
     {
-        Subcategory::create($request->except('_token'));
+        $subcat = Subcategory::create($request->except('_token','category'));
+        CategorySubcategoryGenreMap::create(['category_id'=>$request->category,'subcategory_id'=>$subcat->id]);
         return redirect('/subcategory');
     }
 
@@ -26,7 +28,7 @@ class SubcategoryController extends Controller
 
     public function show()
     {
-        return view('admin.subcategory.show')->with("subcategories", Subcategory::orderByDesc('id')->get());
+        return view('admin.subcategory.show')->with("subcategories", Subcategory::with('category')->orderByDesc('id')->get());
     }
 
     public function trash()

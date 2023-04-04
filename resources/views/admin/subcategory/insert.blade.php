@@ -13,7 +13,7 @@
         </nav>
     </div>
     <div class="row">
-        <div class="col-md-6 grid-margin stretch-card m-auto">
+        <div class="col-md-12 grid-margin stretch-card m-auto">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Create Subcategory</h4>
@@ -30,6 +30,10 @@
                             </div>
                         @endif
                         <div class="form-group">
+                            <label>Select Category</label>
+                            <select class="js-example-basic-single w-100" id="category" name="category"></select>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputUsername1"
                                 placeholder="Subcategory name">
@@ -44,4 +48,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        fetch("category-for-content")
+            .then(x => x.json())
+            .then(y => {
+                console.log(y);
+                document.querySelector("#category").innerHTML += "<option value=''>Select category</option>"
+                for (const key in y) {
+                    if (Object.hasOwnProperty.call(y, key)) {
+                        const element = y[key];
+                        document.querySelector("#category").innerHTML += "<option value=" + element.id + ">" + element
+                            .name + "</option>"
+                    }
+                }
+            });
+    </script>
+@endsection
+@section('page-js')
+    {{-- <script src="{{ asset('assets/js/file-upload.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endsection
