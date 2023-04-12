@@ -13,7 +13,7 @@
         </nav>
     </div>
     <div class="row">
-        <div class="col-md-6 grid-margin stretch-card m-auto">
+        <div class="col-md-12 grid-margin stretch-card m-auto">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Create Content</h4>

@@ -21,9 +21,9 @@
                     @if ($content->type)
                         <p class="card-text">Price : {{ $content->price }}Tk</p>
                     @endif
-                    <p class="card-text">Category : {{ $content->map->category->name }}</p>
-                    <p class="card-text">Subcategory : {{ $content->map->subcategory->name }}</p>
-                    <p class="card-text">Genre : {{ $content->map->genre->name }}</p>
+                    <p class="card-text">Category : {{ $content->map->category?->name }}</p>
+                    <p class="card-text">Subcategory : {{ $content->map->subcategory?->name }}</p>
+                    <p class="card-text">Genre : {{ $content->map->genre?->name }}</p>
                     <p class="card-text">{{ $content->summary }}</p>
                 </div>
                 <div class="card-footer">
