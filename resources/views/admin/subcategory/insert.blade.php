@@ -30,6 +30,10 @@
                             </div>
                         @endif
                         <div class="form-group">
+                            <label>Category</label>
+                            <select class="js-example-basic-single w-100" id="category" name="category"></select>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputUsername1"
                                 placeholder="Subcategory name">
@@ -44,4 +48,20 @@
             </div>
         </div>
     </div>
+
+    <script>
+        fetch("category-for-content")
+            .then(x => x.json())
+            .then(y => {
+                document.querySelector("#category").innerHTML += "<option value=''>Select category</option>"
+                y.map((element) => {
+                    document.querySelector("#category").innerHTML += "<option value=" + element.id + ">" + element.name + "</option>"
+                })
+            });
+    </script>
+@endsection
+
+
+@section('page-js')
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endsection

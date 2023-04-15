@@ -21,6 +21,8 @@
                             <thead>
                                 <tr>
                                     <th>No #</th>
+                                    <th>Category</th>
+                                    <th>Subcategory</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>#</th>
@@ -31,6 +33,8 @@
                                 @foreach ($genres as $genre)
                                     <tr>
                                         <td>{{ $genre->id }}</td>
+                                        <td>{{ $genre->subcategory?->category?->name }}</td>
+                                        <td>{{ $genre->subcategory?->name }}</td>
                                         <td>{{ $genre->name }}</td>
                                         <td>{{ $genre->description }}</td>
                                         <td>

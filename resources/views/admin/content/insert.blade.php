@@ -112,6 +112,5 @@
 @endsection
 
 @section('page-js')
-    {{-- <script src="{{ asset('assets/js/file-upload.js') }}"></script> --}}
     <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endsection

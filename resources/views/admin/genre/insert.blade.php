@@ -30,6 +30,14 @@
                             </div>
                         @endif
                         <div class="form-group">
+                            <label>Category</label>
+                            <select class="js-example-basic-single w-100" id="category" name="category"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Subcategory</label>
+                            <select class="js-example-basic-single w-100" id="subcategory" name="subcategory"></select>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputUsername1"
                                 placeholder="Genre name">
@@ -44,4 +52,34 @@
             </div>
         </div>
     </div>
+
+    <script>
+        categoryDom = document.querySelector("#category");
+        categoryDom.innerHTML = `<option value="">Select Category</option>`;
+        subcategoryDom = document.querySelector("#subcategory");
+        subcategoryDom.innerHTML = `<option value="">Select Subcategory</option>`
+
+        categories = [];
+        fetch("/category-for-content")
+            .then(x => x.json())
+            .then(data => {
+                categories = data;
+                categories.map(category => {
+                    categoryDom.innerHTML += `<option value="${category.id}">${category.name}</option>`;
+                })
+            });
+
+        categoryDom.onchange = function (){
+            var selectedOption = this.options[this.selectedIndex];
+            var value = selectedOption.value;
+            subcategoryDom.innerHTML = `<option value="">Select Subcategory</option>`
+            if(value){
+                categories.find(category => category.id == value).subcats.map(subcat => subcategoryDom.innerHTML+= `<option value="${subcat.id}">${subcat.name}</option>`)
+            }
+        }
+    </script>
+@endsection
+
+@section('page-js')
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endsection

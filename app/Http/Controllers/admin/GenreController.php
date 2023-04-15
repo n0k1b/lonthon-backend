@@ -16,7 +16,8 @@ class GenreController extends Controller
 
     public function insert(GenreRequest $request)
     {
-        Genre::create($request->except('_token'));
+        $gen = Genre::create($request->except('_token'));
+        CategorySubcategoryGenreMap::create(['category_id'=>$request->category,'subcategory_id'=>$request->subcategory,'genre'=>$gen->id]);
         return redirect('genre');
     }
 
@@ -27,7 +28,7 @@ class GenreController extends Controller
 
     public function show()
     {
-        return view('admin.genre.show')->with("genres", Genre::orderByDesc('id')->get());
+        return view('admin.genre.show')->with("genres", Genre::orderByDesc('id')->with('subcategory')->get());
     }
 
     public function trash()

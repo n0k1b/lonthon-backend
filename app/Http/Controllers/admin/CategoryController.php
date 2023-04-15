@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function contentCat()
     {
-        return json_encode(Category::orderByDesc('id')->get());
+        return json_encode(Category::orderByDesc('id')->with('subcats')->get());
     }
 
     public function insert(CategoryRequest $request)

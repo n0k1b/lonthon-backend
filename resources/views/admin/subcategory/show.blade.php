@@ -4,12 +4,7 @@
         <h3 class="page-title">
             Subcategory
         </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Subcategory</a></li>
-                <li class="breadcrumb-item active" aria-current="page">All</li>
-            </ol>
-        </nav>
+        <a href="{{url('create-sub')}}" class="btn btn-primary">Create</a>
     </div>
     <div class="card">
         <div class="card-body">
@@ -21,6 +16,7 @@
                             <thead>
                                 <tr>
                                     <th>No #</th>
+                                    <th>Category</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>#</th>
@@ -31,6 +27,7 @@
                                 @foreach ($subcategories as $subcategory)
                                     <tr>
                                         <td>{{ $subcategory->id }}</td>
+                                        <td>{{ $subcategory->category?->name }}</td>
                                         <td>{{ $subcategory->name }}</td>
                                         <td>{{ $subcategory->description }}</td>
                                         <td>

@@ -30,6 +30,10 @@
                             </div>
                         @endif
                         <div class="form-group">
+                            <label>Category</label>
+                            <select class="js-example-basic-single w-100" id="category" disabled></select>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputUsername1"
                                 placeholder="Category name" value="{{$subcategory->name}}">
@@ -44,4 +48,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        fetch("/category-for-content")
+            .then(x => x.json())
+            .then(categories => {
+                document.querySelector("#category").innerHTML += `<option value={{$subcategory->category->id}}>{{$subcategory->category->name}}</option>`
+            });
+    </script>
+@endsection
+
+@section('page-js')
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endsection

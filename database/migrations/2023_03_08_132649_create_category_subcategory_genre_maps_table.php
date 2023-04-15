@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('subcategory_id');
-            $table->unsignedBigInteger('genre_id');
+            $table->unsignedBigInteger('genre_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('subcategory_id')->references('id')->on('subcategories');
-            $table->foreign('genre_id')->references('id')->on('genres');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete("cascade");
+            $table->foreign('subcategory_id')->references('id')->on('subcategories')->onDelete("cascade");
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete("cascade");
         });
     }
 

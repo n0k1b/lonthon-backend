@@ -4,12 +4,7 @@
         <h3 class="page-title">
             Content
         </h3>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Contents</a></li>
-                <li class="breadcrumb-item active" aria-current="page">All</li>
-            </ol>
-        </nav>
+        <a href="{{url('create-cont')}}" class="btn btn-primary">Create</a>
     </div>
     <div class="card-columns">
         @foreach ($contents as $content)
@@ -18,9 +13,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $content->title }}</h4>
                     <p class="card-text">Type : {{ $content->type ? 'Paid' : 'Free' }}</p>
-                    @if ($content->type)
-                        <p class="card-text">Price : {{ $content->price }}Tk</p>
-                    @endif
+                    @if ($content->type) <p class="card-text">Price : {{ $content->price }}Tk</p> @endif
                     <p class="card-text">Category : {{ $content->map->category?->name }}</p>
                     <p class="card-text">Subcategory : {{ $content->map->subcategory?->name }}</p>
                     <p class="card-text">Genre : {{ $content->map->genre?->name }}</p>

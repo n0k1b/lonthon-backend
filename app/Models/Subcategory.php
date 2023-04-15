@@ -13,12 +13,12 @@ class Subcategory extends Model
     protected $guarded = [];
 
     /**
-     * Get all of the genre for the Subcategory
+     * Get the category that owns the Subcategory
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function genres()
+    public function category()
     {
-        return $this->hasMany(CategorySubcategoryGenreMap::class, 'genre_id', 'id');
+        return $this->belongsTo(CategorySubcategoryGenreMap::class,'id');
     }
 }
