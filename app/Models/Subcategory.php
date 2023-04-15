@@ -12,13 +12,8 @@ class Subcategory extends Model
     use SoftDeletes;
     protected $guarded = [];
 
-    /**
-     * Get the category that owns the Subcategory
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category()
+    public function genres()
     {
-        return $this->belongsTo(CategorySubcategoryGenreMap::class,'id');
+        return $this->hasMany(CategorySubcategoryGenreMap::class);
     }
 }
