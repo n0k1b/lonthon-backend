@@ -33,10 +33,10 @@
                                 @foreach ($genres as $genre)
                                     <tr>
                                         <td>{{ $genre->id }}</td>
-                                        <td>{{ $genre->subcategory?->category?->name }}</td>
-                                        <td>{{ $genre->subcategory?->name }}</td>
-                                        <td>{{ $genre->name }}</td>
-                                        <td>{{ $genre->description }}</td>
+                                        <td>{{ $genre->category->name }}</td>
+                                        <td>{{ $genre->subCategory->name }}</td>
+                                        <td>{{ $genre->genre->name }}</td>
+                                        <td>{{ $genre->genre->description }}</td>
                                         <td>
                                             <a href="{{ route('genre-editing', ['id' => $genre->id]) }}"
                                                 class="btn btn-outline-primary">Edit</a>

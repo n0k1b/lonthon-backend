@@ -4,11 +4,17 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GenreRequest;
+use App\Models\CategorySubcategoryGenreMap;
 use App\Models\Genre;
-use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
+    public function index()
+    {
+        $genres = CategorySubcategoryGenreMap::with(['subCategory', 'category', 'genre'])->whereNotNull('genre_id')->get();
+        return view('admin.genre.show', compact('genres'));
+
+    }
     public function contentGen()
     {
         return json_encode(Genre::orderByDesc('id')->get());
@@ -17,7 +23,7 @@ class GenreController extends Controller
     public function insert(GenreRequest $request)
     {
         $gen = Genre::create($request->except('_token'));
-        CategorySubcategoryGenreMap::create(['category_id'=>$request->category,'subcategory_id'=>$request->subcategory,'genre'=>$gen->id]);
+        CategorySubcategoryGenreMap::create(['category_id' => $request->category, 'subcategory_id' => $request->subcategory, 'genre' => $gen->id]);
         return redirect('genre');
     }
 
@@ -58,7 +64,7 @@ class GenreController extends Controller
 
     public function edit($id)
     {
-        return view("admin.genre.edit",["genre"=>Genre::find($id)]);
+        return view("admin.genre.edit", ["genre" => Genre::find($id)]);
     }
 
     public function update(GenreRequest $req, $id)

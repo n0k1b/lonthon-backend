@@ -4,20 +4,26 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubcategoryRequest;
-use App\Models\Subcategory;
 use App\Models\CategorySubcategoryGenreMap;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 
 class SubcategoryController extends Controller
 {
+    public function index()
+    {
+        $subCategories = CategorySubcategoryGenreMap::with(['subCategory', 'category'])->whereNotNull('subcategory_id')->get();
+        return view('admin.subcategory.show', compact('subCategories'));
+
+    }
     public function contentSubcat()
     {
         return json_encode(Subcategory::orderByDesc('id')->get());
     }
     public function insert(SubcategoryRequest $request)
     {
-        $sub = Subcategory::create($request->except('_token','category'));
-        CategorySubcategoryGenreMap::create(['category_id'=>$request->category,'subcategory_id'=>$sub->id]);
+        $sub = Subcategory::create($request->except('_token', 'category'));
+        CategorySubcategoryGenreMap::create(['category_id' => $request->category, 'subcategory_id' => $sub->id]);
         return redirect('/subcategory');
     }
 
@@ -58,7 +64,7 @@ class SubcategoryController extends Controller
 
     public function edit($id)
     {
-        return view("admin.subcategory.edit",["subcategory"=>Subcategory::find($id)]);
+        return view("admin.subcategory.edit", ["subcategory" => Subcategory::find($id)]);
     }
 
     public function update(Request $req, $id)

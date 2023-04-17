@@ -24,12 +24,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($subcategories as $subcategory)
+                                @foreach ($subCategories as $subcategory)
                                     <tr>
                                         <td>{{ $subcategory->id }}</td>
-                                        <td>{{ $subcategory->category?->name }}</td>
-                                        <td>{{ $subcategory->name }}</td>
-                                        <td>{{ $subcategory->description }}</td>
+                                        <td>{{ $subcategory->category->name }}</td>
+                                        <td>{{ $subcategory->subCategory->name }}</td>
+                                        <td>{{ $subcategory->subCategory->description }}</td>
                                         <td>
                                             <a href="{{ route('subcategory-editing', ['id' => $subcategory->id]) }}"
                                                 class="btn btn-outline-primary">Edit</a>

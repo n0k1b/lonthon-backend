@@ -92,7 +92,7 @@
                         </a>
                         <div class="collapse" id="genre-layouts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="{{ url('genre') }}">View Genre</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('genres') }}">View Genre</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{ url('create-gen') }}">Create
                                         Genre</a></li>
                                 {{-- <li class="nav-item"> <a class="nav-link"
