@@ -20,7 +20,9 @@
                     <p class="card-description"></p>
                     <form class="forms-sample" action="{{ route('content-inserting') }}" enctype="multipart/form-data" method="post">
                         @csrf
-                        {{-- <p>{{$categories}}</p> --}}
+                        <pre>
+                            {{ json_encode($categories,JSON_PRETTY_PRINT) }}
+                        </pre>
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -74,40 +76,7 @@
     </div>
 
     <script>
-        fetch("category-for-content")
-        .then(x => x.json())
-        .then(y => {
-            console.log(y);
-            document.querySelector("#category").innerHTML += "<option value=''>Select category</option>"
-            for (const key in y) {
-                if (Object.hasOwnProperty.call(y, key)) {
-                    const element = y[key];
-                    document.querySelector("#category").innerHTML += "<option value=" + element.id + ">" + element.name + "</option>"
-                }
-            }
-        });
-        fetch("subcategory-for-content")
-        .then(x => x.json())
-            .then(y => {
-                document.querySelector("#subcategory").innerHTML += "<option value=''>Select subcategory</option>"
-                for (const key in y) {
-                    if (Object.hasOwnProperty.call(y, key)) {
-                        const element = y[key];
-                        document.querySelector("#subcategory").innerHTML += "<option value=" + element.id + ">" + element.name + "</option>"
-                    }
-                }
-            });
-        fetch("genre-for-content")
-            .then(x => x.json())
-            .then(y => {
-                document.querySelector("#genre").innerHTML += "<option value=''>Select genre</option>"
-                for (const key in y) {
-                    if (Object.hasOwnProperty.call(y, key)) {
-                        const element = y[key];
-                        document.querySelector("#genre").innerHTML += "<option value=" + element.id + ">" + element.name + "</option>"
-                    }
-                }
-            });
+
     </script>
 @endsection
 

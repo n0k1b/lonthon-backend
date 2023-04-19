@@ -32,17 +32,17 @@
                             <tbody>
                                 @foreach ($genres as $genre)
                                     <tr>
-                                        <td>{{ $genre->id }}</td>
+                                        <td>{{ $genre->genre->id }}</td>
                                         <td>{{ $genre->category->name }}</td>
                                         <td>{{ $genre->subCategory->name }}</td>
                                         <td>{{ $genre->genre->name }}</td>
                                         <td>{{ $genre->genre->description }}</td>
                                         <td>
-                                            <a href="{{ route('genre-editing', ['id' => $genre->id]) }}"
+                                            <a href="{{ route('genre-editing', ['id' => $genre->genre->id]) }}"
                                                 class="btn btn-outline-primary">Edit</a>
                                         </td>
                                         <td>
-                                            <a href="{{ route('genre-deleting', ['id' => $genre->id]) }}"
+                                            <a href="{{ route('genre-deleting', ['id' => $genre->genre->id]) }}"
                                                 class="btn btn-outline-danger">Delete</a>
                                         </td>
                                     </tr>

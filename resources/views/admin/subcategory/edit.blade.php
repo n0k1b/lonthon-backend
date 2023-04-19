@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Update Subcategory</h4>
                     <p class="card-description"></p>
-                    <form class="forms-sample" action="{{ route('subcategory-updating',["id"=>$subcategory->id]) }}" method="post">
+                    <form class="forms-sample" action="{{ route('subcategory-updating',["id"=>$subcategory->subcategory->id]) }}" method="post">
                         @csrf
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -30,17 +30,17 @@
                             </div>
                         @endif
                         <div class="form-group">
-                            <label>Category</label>
-                            <select class="js-example-basic-single w-100" id="category" disabled></select>
+                            <label for="exampleInputUsername1">Category</label>
+                            <input disabled class="form-control" value="{{$subcategory->category->name}}">
+                            <input name="category" hidden class="form-control" value="{{$subcategory->category->name}}">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
-                            <input name="name" type="text" class="form-control" id="exampleInputUsername1"
-                                placeholder="Category name" value="{{$subcategory->name}}">
+                            <input name="name" type="text" class="form-control" id="exampleInputUsername1" placeholder="Category name" value="{{$subcategory->subcategory->name}}">
                         </div>
                         <div class="form-group">
                             <label for="exampleTextarea1">Description</label>
-                            <textarea name="description" class="form-control" id="exampleTextarea1" rows="4">{{$subcategory->description}}</textarea>
+                            <textarea name="description" class="form-control" id="exampleTextarea1" rows="4">{{$subcategory->subcategory->description}}</textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     </form>
@@ -48,14 +48,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        fetch("/category-for-content")
-            .then(x => x.json())
-            .then(categories => {
-                document.querySelector("#category").innerHTML += `<option value={{$subcategory->category->id}}>{{$subcategory->category->name}}</option>`
-            });
-    </script>
 @endsection
 
 @section('page-js')

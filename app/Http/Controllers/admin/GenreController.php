@@ -15,27 +15,22 @@ class GenreController extends Controller
         return view('admin.genre.show', compact('genres'));
 
     }
-    public function contentGen()
-    {
-        return json_encode(Genre::orderByDesc('id')->get());
-    }
-
     public function insert(GenreRequest $request)
     {
-        $gen = Genre::create($request->except('_token'));
-        CategorySubcategoryGenreMap::create(['category_id' => $request->category, 'subcategory_id' => $request->subcategory, 'genre' => $gen->id]);
-        return redirect('genre');
+        $gen = Genre::create($request->except('_token','category', 'subcategory'));
+        CategorySubcategoryGenreMap::create(['category_id' => $request->category, 'subcategory_id' => $request->subcategory, 'genre_id' => $gen->id]);
+        return redirect('genres');
     }
 
     public function create()
     {
-        return view('admin.genre.insert');
+        return view('admin.genre.insert')->with("categories",\App\Models\Category::with('subcategories.subCategory')->get());
     }
 
-    public function show()
-    {
-        return view('admin.genre.show')->with("genres", Genre::orderByDesc('id')->with('subcategory')->get());
-    }
+    // public function show()
+    // {
+    //     return view('admin.genre.show')->with("genres", Genre::orderByDesc('id')->with('subcategory')->get());
+    // }
 
     public function trash()
     {
@@ -64,7 +59,7 @@ class GenreController extends Controller
 
     public function edit($id)
     {
-        return view("admin.genre.edit", ["genre" => Genre::find($id)]);
+        return view("admin.genre.edit", ["map" => CategorySubcategoryGenreMap::where('genre_id',$id)->with('category','subcategory','genre')->first()]);
     }
 
     public function update(GenreRequest $req, $id)
@@ -73,6 +68,6 @@ class GenreController extends Controller
         $cat->name = $req->name;
         $cat->description = $req->description;
         $cat->update();
-        return redirect('genre');
+        return redirect('genres');
     }
 }

@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Update Genre</h4>
                     <p class="card-description"></p>
-                    <form class="forms-sample" action="{{ route('genre-updating',["id"=>$genre->id]) }}" method="post">
+                    <form class="forms-sample" action="{{ route('genre-updating',["id"=>$map->genre->id]) }}" method="post">
                         @csrf
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -30,13 +30,23 @@
                             </div>
                         @endif
                         <div class="form-group">
+                            <label for="exampleInputUsername1">Category</label>
+                            <input class="form-control" value="{{$map->category->name}}" disabled>
+                            <input class="form-control" value="{{$map->category->name}}" name="category" hidden>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputUsername1">Subcategory</label>
+                            <input class="form-control" value="{{$map->subcategory->name}}" disabled>
+                            <input class="form-control" value="{{$map->subcategory->name}}" name="subcategory" hidden>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputUsername1"
-                                placeholder="Genre name" value="{{$genre->name}}">
+                                placeholder="Genre name" value="{{$map->genre->name}}">
                         </div>
                         <div class="form-group">
                             <label for="exampleTextarea1">Description</label>
-                            <textarea name="description" class="form-control" id="exampleTextarea1" rows="4">{{$genre->description}}</textarea>
+                            <textarea name="description" class="form-control" id="exampleTextarea1" rows="4">{{$map->genre->description}}</textarea>
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                     </form>

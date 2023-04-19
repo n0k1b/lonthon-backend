@@ -46,7 +46,6 @@ Route::prefix('/content')->group(function () {
 });
 
 // category
-Route::get('/category-for-content', [CategoryController::class, "contentCat"]);
 Route::get('/categories', [CategoryController::class, "show"]);
 Route::get('/create-cat', [CategoryController::class, "create"]);
 Route::get('/edit/{id}/category', [CategoryController::class, "edit"])->name("category-editing");
@@ -60,8 +59,6 @@ Route::prefix('/category')->group(function () {
 });
 
 // subcategory
-Route::get('/subcategory-for-content', [SubcategoryController::class, "contentSubcat"]);
-
 Route::get('/create-sub', [SubcategoryController::class, "create"]);
 Route::get('/edit/{id}/category-sub', [SubcategoryController::class, "edit"])->name("subcategory-editing");
 Route::prefix('/subcategory')->group(function () {
@@ -75,8 +72,6 @@ Route::prefix('/subcategory')->group(function () {
 });
 
 // genre
-Route::get('/genre-for-content', [GenreController::class, "contentGen"]);
-
 Route::get('/create-gen', [GenreController::class, "create"]);
 Route::get('/edit/{id}/genre', [GenreController::class, "edit"])->name("genre-editing");
 Route::prefix('/genres')->group(function () {

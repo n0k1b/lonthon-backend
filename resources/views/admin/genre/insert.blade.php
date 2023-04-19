@@ -31,11 +31,18 @@
                         @endif
                         <div class="form-group">
                             <label>Category</label>
-                            <select class="js-example-basic-single w-100" id="category" name="category"></select>
+                            <select class="js-example-basic-single w-100" id="category" name="category">
+                                <option value="">Select Category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Subcategory</label>
-                            <select class="js-example-basic-single w-100" id="subcategory" name="subcategory"></select>
+                            <select class="js-example-basic-single w-100" id="subcategory" name="subcategory">
+                                <option value="">Select Subcategory</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
@@ -55,26 +62,13 @@
 
     <script>
         categoryDom = document.querySelector("#category");
-        categoryDom.innerHTML = `<option value="">Select Category</option>`;
         subcategoryDom = document.querySelector("#subcategory");
-        subcategoryDom.innerHTML = `<option value="">Select Subcategory</option>`
-
-        categories = [];
-        fetch("/category-for-content")
-            .then(x => x.json())
-            .then(data => {
-                categories = data;
-                categories.map(category => {
-                    categoryDom.innerHTML += `<option value="${category.id}">${category.name}</option>`;
-                })
-            });
 
         categoryDom.onchange = function (){
-            var selectedOption = this.options[this.selectedIndex];
-            var value = selectedOption.value;
+            var value = this.options[this.selectedIndex].value;
             subcategoryDom.innerHTML = `<option value="">Select Subcategory</option>`
             if(value){
-                categories.find(category => category.id == value).subcats.map(subcat => subcategoryDom.innerHTML+= `<option value="${subcat.id}">${subcat.name}</option>`)
+                @json($categories).find(category => category.id == value).subcategories.map(subcat => subcategoryDom.innerHTML+= `<option value="${subcat.sub_category.id}">${subcat.sub_category.name}</option>`)
             }
         }
     </script>

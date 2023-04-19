@@ -32,7 +32,7 @@ class ContentController extends Controller
 
     public function create()
     {
-        return view('admin.content.insert');
+        return view('admin.content.insert')->with('categories',\App\Models\Category::with('subcategories.subCategory.genres.genre')->get());
     }
 
     public function show()

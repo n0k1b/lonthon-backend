@@ -4,13 +4,18 @@
         <h3 class="page-title">
             Category
         </h3>
-        <a href="{{url('create-cat')}}" class="btn btn-primary">Create</a>
+        <a href="{{ url('create-cat') }}" class="btn btn-primary">Create</a>
     </div>
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">Category Table</h4>
             <div class="row">
                 <div class="col-12">
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="table-responsive">
                         <table id="order-listing" class="table">
                             <thead>

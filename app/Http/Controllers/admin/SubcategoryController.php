@@ -6,20 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SubcategoryRequest;
 use App\Models\CategorySubcategoryGenreMap;
 use App\Models\Subcategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class SubcategoryController extends Controller
 {
     public function index()
     {
-        $subCategories = CategorySubcategoryGenreMap::with(['subCategory', 'category'])->whereNotNull('subcategory_id')->get();
-        return view('admin.subcategory.show', compact('subCategories'));
+        return view('admin.subcategory.show')->with('subcategories',CategorySubcategoryGenreMap::with(['subCategory', 'category'])->whereNotNull('subcategory_id')->get());
 
     }
-    public function contentSubcat()
-    {
-        return json_encode(Subcategory::orderByDesc('id')->get());
-    }
+
     public function insert(SubcategoryRequest $request)
     {
         $sub = Subcategory::create($request->except('_token', 'category'));
@@ -29,12 +26,7 @@ class SubcategoryController extends Controller
 
     public function create()
     {
-        return view('admin.subcategory.insert');
-    }
-
-    public function show()
-    {
-        return view('admin.subcategory.show')->with("subcategories", Subcategory::orderByDesc('id')->with("category")->get());
+        return view('admin.subcategory.insert')->with("categories",Category::all());
     }
 
     public function trash()
@@ -58,16 +50,22 @@ class SubcategoryController extends Controller
 
     public function delete($id)
     {
-        Subcategory::find($id)->delete();
-        return back();
+        $subcats = CategorySubcategoryGenreMap::where('subcategory_id',$id)->whereNotNull('genre_id')->get();
+        if(count($subcats)){
+            return back()->with("error","It contains genres");
+        }else{
+            // CategorySubcategoryGenreMap::find($subcats->id)->delete();
+            Subcategory::find($id)->delete();
+            return back();
+        }
     }
 
     public function edit($id)
     {
-        return view("admin.subcategory.edit", ["subcategory" => Subcategory::find($id)]);
+        return view("admin.subcategory.edit", ["subcategory" => CategorySubcategoryGenreMap::where('subcategory_id',$id)->whereNull('genre_id')->with('category','subcategory')->first()]);
     }
 
-    public function update(Request $req, $id)
+    public function update(SubcategoryRequest $req, $id)
     {
         $cat = Subcategory::find($id);
         $cat->name = $req->name;

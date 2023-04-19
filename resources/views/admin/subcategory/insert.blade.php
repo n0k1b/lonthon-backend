@@ -31,7 +31,12 @@
                         @endif
                         <div class="form-group">
                             <label>Category</label>
-                            <select class="js-example-basic-single w-100" id="category" name="category"></select>
+                            <select class="js-example-basic-single w-100" id="category" name="category">
+                                <option value="">Select Category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
@@ -48,17 +53,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        fetch("category-for-content")
-            .then(x => x.json())
-            .then(y => {
-                document.querySelector("#category").innerHTML += "<option value=''>Select category</option>"
-                y.map((element) => {
-                    document.querySelector("#category").innerHTML += "<option value=" + element.id + ">" + element.name + "</option>"
-                })
-            });
-    </script>
 @endsection
 
 
