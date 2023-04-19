@@ -13,7 +13,8 @@ class SubcategoryController extends Controller
 {
     public function index()
     {
-        return view('admin.subcategory.show')->with('subcategories',CategorySubcategoryGenreMap::with(['subCategory', 'category'])->whereNotNull('subcategory_id')->get());
+        $subcategories = CategorySubcategoryGenreMap::with(['subCategory', 'category'])->select('subcategory_id', 'category_id')->distinct('subcategory_id')->get();
+        return view('admin.subcategory.show')->with('subcategories',$subcategories);
 
     }
 

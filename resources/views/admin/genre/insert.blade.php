@@ -34,7 +34,7 @@
                             <select class="js-example-basic-single w-100" id="category" name="category">
                                 <option value="">Select Category</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -63,12 +63,12 @@
     <script>
         categoryDom = document.querySelector("#category");
         subcategoryDom = document.querySelector("#subcategory");
-
-        categoryDom.onchange = function (){
+        categoryDom.onchange = function() {
             var value = this.options[this.selectedIndex].value;
             subcategoryDom.innerHTML = `<option value="">Select Subcategory</option>`
-            if(value){
-                @json($categories).find(category => category.id == value).subcategories.map(subcat => subcategoryDom.innerHTML+= `<option value="${subcat.sub_category.id}">${subcat.sub_category.name}</option>`)
+            if (value) {
+                @json($categories).find(category => category.id == value).maps.map(subcat => subcategoryDom.innerHTML +=
+                    `<option value="${subcat.sub_category.id}">${subcat.sub_category.name}</option>`)
             }
         }
     </script>

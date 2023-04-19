@@ -7,6 +7,9 @@
         <a href="{{url('create-cont')}}" class="btn btn-primary">Create</a>
     </div>
     <div class="card-columns">
+        @if (!count($contents))
+            <h4 class="text-center">No Content Available</h4>
+        @else
         @foreach ($contents as $content)
             <div class="card">
                 <img class="card-img-top" src="{{ asset('storage/' . $content->feature_image) }}" alt="Card image cap">
@@ -25,6 +28,7 @@
                 </div>
             </div>
         @endforeach
+        @endif
     </div>
 @endsection
 

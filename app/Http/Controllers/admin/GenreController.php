@@ -24,7 +24,12 @@ class GenreController extends Controller
 
     public function create()
     {
-        return view('admin.genre.insert')->with("categories",\App\Models\Category::with('subcategories.subCategory')->get());
+        return view('admin.genre.insert')->with("categories",\App\Models\Category::with(['maps' => function ($query)
+        {
+            $query->select('subcategory_id','category_id');
+            $query->distinct('subcategory_id');
+            $query->with('subCategory');
+        }])->get());
     }
 
     // public function show()

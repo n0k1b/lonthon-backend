@@ -12,7 +12,7 @@ class Category extends Model
     use SoftDeletes;
     protected $guarded = [];
 
-    public function subcategories()
+    public function maps()
     {
         return $this->hasMany(CategorySubcategoryGenreMap::class, 'category_id', 'id');
     }

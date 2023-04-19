@@ -23,8 +23,8 @@ class BusinessSettingController extends Controller
 
     public function textEdit()
     {
-        $data = BusinessSetting::select('homepage_title','homepage_description','about_us','email','contact_info1','contact_info2','contact_info3','facebook_url','instagram_url','twitter_url','terms_and_condition')->get();
-        return view("admin.business settings.text")->with("data",$data[0]);
+        $data = BusinessSetting::select('homepage_title','homepage_description','about_us','email','contact_info1','contact_info2','contact_info3','facebook_url','instagram_url','twitter_url','terms_and_condition')->first();
+        return view("admin.business settings.text")->with("data",$data);
     }
 
     public function textUpdate(Request $req)
@@ -47,8 +47,8 @@ class BusinessSettingController extends Controller
 
     public function mediaEdit()
     {
-        $data = BusinessSetting::select('favicon','homepage_banner_image','homepage_promotional_banner1','homepage_promotional_banner2','logo')->get();
-        return view("admin.business settings.media")->with("data",$data[0]);
+        $data = BusinessSetting::select('favicon','homepage_banner_image','homepage_promotional_banner1','homepage_promotional_banner2','logo')->first();
+        return view("admin.business settings.media")->with("data",$data);
     }
 
     public function mediaUpdate(Request $req)

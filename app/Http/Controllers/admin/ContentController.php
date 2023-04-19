@@ -32,7 +32,19 @@ class ContentController extends Controller
 
     public function create()
     {
-        return view('admin.content.insert')->with('categories',\App\Models\Category::with('subcategories.subCategory.genres.genre')->get());
+        $data = \App\Models\Category::with(['maps'=> function ($query)
+        {
+            $query->select('subcategory_id','category_id');
+            $query->distinct('subcategory_id');
+            $query->with(['subCategory.maps'=>function ($q)
+            {
+                $q->select('subcategory_id','genre_id');
+                $q->whereNotNull('genre_id');
+                $q->distinct('genre_id');
+                $q->with('genre');
+            }]);
+        }])->get();
+        return view('admin.content.insert')->with('categories',$data);
     }
 
     public function show()
