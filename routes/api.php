@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('homepage-content', [HomepageController::class, 'index']);
 Route::get('business-settings', [BusinessSettingController::class, 'index']);
+Route::post('text-to-image',[MediaController::class,'textToImage']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
