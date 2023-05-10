@@ -30,3 +30,4 @@ Route::controller(UserController::class)->group(function ()
     Route::post('user','user');
     Route::post('logout','logout');
 })->middleware('auth:api');
+
