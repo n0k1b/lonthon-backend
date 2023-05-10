@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('homepage-content', [HomepageController::class, 'index']);
 Route::get('business-settings', [BusinessSettingController::class, 'index']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(UserController::class)->group(function ()
+{
+    Route::post('login','login');
+    Route::post('register','register');
 });
+Route::controller(UserController::class)->group(function ()
+{
+    Route::post('user','user');
+    Route::post('logout','logout');
+})->middleware('auth:api');
