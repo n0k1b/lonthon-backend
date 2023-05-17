@@ -19,4 +19,9 @@ class Content extends Model
     {
         return $this->belongsTo(CategorySubcategoryGenreMap::class, 'category_sub_category_map_id', 'id');
     }
+    public function media()
+    {
+        return $this->hasMany(ContentMedia::class, 'content_id');
+    }
+
 }
