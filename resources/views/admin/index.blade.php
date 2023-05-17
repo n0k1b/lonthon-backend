@@ -56,9 +56,9 @@
                         </a>
                         <div class="collapse" id="category-layouts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="{{ url('categories') }}">All
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('category') }}">All
                                         Categories</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{ url('create-cat') }}">Create
+                                <li class="nav-item"> <a class="nav-link" href="{{ url('category/create') }}">Create
                                         Categories</a></li>
                                 {{-- <li class="nav-item"> <a class="nav-link"
                                         href="{{url('category/trash')}}">Trash Categories</a></li> --}}

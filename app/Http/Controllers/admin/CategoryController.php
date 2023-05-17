@@ -9,6 +9,10 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    public function index()
+    {
+        return view('admin.category.show')->with("categories", Category::orderByDesc('id')->get());
+    }
     public function insert(CategoryRequest $request)
     {
         Category::create($request->all());
@@ -46,18 +50,18 @@ class CategoryController extends Controller
 
     public function delete($id)
     {
-        $maps = \App\Models\CategorySubcategoryGenreMap::where('category_id',$id)->get();
-        if(count($maps)==0){
+        $maps = \App\Models\CategorySubcategoryGenreMap::where('category_id', $id)->get();
+        if (count($maps) == 0) {
             Category::find($id)->delete();
             return back();
-        }else{
-            return back()->with('error','It contains subcategories!');
+        } else {
+            return back()->with('error', 'It contains subcategories!');
         }
     }
 
     public function edit($id)
     {
-        return view("admin.category.edit",["category"=>Category::find($id)]);
+        return view("admin.category.edit", ["category" => Category::find($id)]);
     }
 
     public function update(CategoryRequest $req, $id)

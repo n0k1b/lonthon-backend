@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {return view("admin.dashboard");});
+Route::get('/', function () {
+    return view("admin.dashboard");
+});
 
 // business settings
 Route::prefix('settings')->group(function () {
@@ -46,10 +48,11 @@ Route::prefix('/content')->group(function () {
 });
 
 // category
-Route::get('/categories', [CategoryController::class, "show"]);
-Route::get('/create-cat', [CategoryController::class, "create"]);
+
 Route::get('/edit/{id}/category', [CategoryController::class, "edit"])->name("category-editing");
 Route::prefix('/category')->group(function () {
+    Route::get('/', [CategoryController::class, "index"]);
+    Route::get('/create', [CategoryController::class, "create"]);
     Route::post('/insert', [CategoryController::class, "insert"])->name("category-inserting");
     Route::get('/delete/{id}', [CategoryController::class, "delete"])->name("category-deleting");
     Route::post('/update/{id}', [CategoryController::class, "update"])->name("category-updating");
@@ -84,4 +87,4 @@ Route::prefix('/genres')->group(function () {
     // Route::get('/forced/{id}', [GenreController::class, "forced"])->name("genres-forced");
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
