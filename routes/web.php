@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\controllers\admin\CategoryController;
+use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ContentController;
 use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\SubcategoryController;
