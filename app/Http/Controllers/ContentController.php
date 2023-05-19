@@ -13,11 +13,15 @@ use Throwable;
 class ContentController extends Controller
 {
     //
-
+    public function index()
+    {
+        $data = Content::get();
+        return $this->successJsonResponse('Content data found', $data);
+    }
     public function show($id)
     {
         $data = Content::with('media')->findOrFail($id);
-        return $this->successJsonResponse('Homepage content found', $data);
+        return $this->successJsonResponse('Content data found', $data);
     }
 
     public function store(Request $request)

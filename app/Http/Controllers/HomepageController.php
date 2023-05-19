@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Subcategory;
 use Throwable;
 
 class HomepageController extends Controller
@@ -32,5 +33,35 @@ class HomepageController extends Controller
         } catch (Throwable $th) {
             return $this->exceptionJsonResponse($th);
         }
+    }
+    public function getCategory()
+    {
+        $data = Category::select('id', 'name', 'status')->get();
+        return $this->successJsonResponse('Category data found', $data);
+    }
+    public function getSubCategory($id)
+    {
+        $data = Category::with('subcategories')->where('id', $id)->first();
+
+        if ($data) {
+            $subcategories = $data->subcategories;
+
+            return $this->successJsonResponse('Subcategory data found', $subcategories);
+        }
+
+        return $this->errorJsonResponse('Category not found');
+    }
+
+    public function getGenre($id)
+    {
+        $data = Subcategory::with('genres')->where('id', $id)->first();
+
+        if ($data) {
+            $genres = $data->genres;
+
+            return $this->successJsonResponse('Genre data found', $genres);
+        }
+
+        return $this->errorJsonResponse('Category not found');
     }
 }

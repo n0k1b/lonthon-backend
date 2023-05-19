@@ -18,9 +18,12 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('homepage-content', [HomepageController::class, 'index']);
+Route::get('category', [HomepageController::class, 'getCategory']);
+Route::get('category/{id}', [HomepageController::class, 'getSubCategory']);
+Route::get('sub-category/{id}', [HomepageController::class, 'getGenre']);
 Route::get('business-settings', [BusinessSettingController::class, 'index']);
 Route::post('content-upload', [ContentController::class, 'store']);
-Route::get('content/{id}', [ContentController::class, 'show']);
+Route::apiResource('content', ContentController::class);
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
