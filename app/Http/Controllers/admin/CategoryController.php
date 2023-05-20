@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function insert(CategoryRequest $request)
     {
         Category::create($request->all());
-        return redirect('/categories');
+        return redirect('/category');
     }
 
     public function create()

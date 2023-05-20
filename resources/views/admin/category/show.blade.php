@@ -4,7 +4,7 @@
         <h3 class="page-title">
             Category
         </h3>
-        <a href="{{ url('create-cat') }}" class="btn btn-primary">Create</a>
+        <a href="{{ url('category/create') }}" class="btn btn-primary">Create</a>
     </div>
     <div class="card">
         <div class="card-body">
