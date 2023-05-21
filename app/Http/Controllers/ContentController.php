@@ -95,7 +95,7 @@ class ContentController extends Controller
             return $this->successJsonResponse('Content uploaded successfully', $content);
         } catch (Throwable $th) {
             DB::rollBack();
-            return $this->successJsonResponse('Content not uploaded');
+            return $this->successJsonResponse('Content not uploaded', $th);
         }
     }
 
