@@ -41,10 +41,11 @@ class HomepageController extends Controller
     }
     public function getSubCategory($id)
     {
-        $data = Category::with('subcategories')->where('id', $id)->first();
+        $data = Category::with('subcategories.subcategory')->where('id', $id)->first();
 
         if ($data) {
-            $subcategories = $data->subcategories;
+
+            $subcategories = $data->subcategories->pluck('subcategory');
 
             return $this->successJsonResponse('Subcategory data found', $subcategories);
         }
@@ -57,7 +58,7 @@ class HomepageController extends Controller
         $data = Subcategory::with('genres')->where('id', $id)->first();
 
         if ($data) {
-            $genres = $data->genres;
+            $genres = $data->genres->pluck('genre');
 
             return $this->successJsonResponse('Genre data found', $genres);
         }

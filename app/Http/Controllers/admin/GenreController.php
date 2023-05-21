@@ -17,19 +17,14 @@ class GenreController extends Controller
     }
     public function insert(GenreRequest $request)
     {
-        $gen = Genre::create($request->except('_token','category', 'subcategory'));
+        $gen = Genre::create($request->except('_token', 'category', 'subcategory'));
         CategorySubcategoryGenreMap::create(['category_id' => $request->category, 'subcategory_id' => $request->subcategory, 'genre_id' => $gen->id]);
         return redirect('genres');
     }
 
     public function create()
     {
-        return view('admin.genre.insert')->with("categories",\App\Models\Category::with(['maps' => function ($query)
-        {
-            $query->select('subcategory_id','category_id');
-            $query->distinct('subcategory_id');
-            $query->with('subCategory');
-        }])->get());
+        return view('admin.genre.insert');
     }
 
     // public function show()
@@ -64,7 +59,7 @@ class GenreController extends Controller
 
     public function edit($id)
     {
-        return view("admin.genre.edit", ["map" => CategorySubcategoryGenreMap::where('genre_id',$id)->with('category','subcategory','genre')->first()]);
+        return view("admin.genre.edit", ["map" => CategorySubcategoryGenreMap::where('genre_id', $id)->with('category', 'subcategory', 'genre')->first()]);
     }
 
     public function update(GenreRequest $req, $id)

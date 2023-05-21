@@ -13,7 +13,7 @@
         </nav>
     </div>
     <div class="row">
-        <div class="col-md-12 grid-margin stretch-card m-auto">
+        <div class="col-md-6 grid-margin stretch-card m-auto">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Create Genre</h4>
@@ -30,21 +30,6 @@
                             </div>
                         @endif
                         <div class="form-group">
-                            <label>Category</label>
-                            <select class="js-example-basic-single w-100" id="category" name="category">
-                                <option value="">Select Category</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Subcategory</label>
-                            <select class="js-example-basic-single w-100" id="subcategory" name="subcategory">
-                                <option value="">Select Subcategory</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input name="name" type="text" class="form-control" id="exampleInputUsername1"
                                 placeholder="Genre name">
@@ -59,21 +44,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        categoryDom = document.querySelector("#category");
-        subcategoryDom = document.querySelector("#subcategory");
-        categoryDom.onchange = function() {
-            var value = this.options[this.selectedIndex].value;
-            subcategoryDom.innerHTML = `<option value="">Select Subcategory</option>`
-            if (value) {
-                @json($categories).find(category => category.id == value).maps.map(subcat => subcategoryDom.innerHTML +=
-                    `<option value="${subcat.sub_category.id}">${subcat.sub_category.name}</option>`)
-            }
-        }
-    </script>
-@endsection
-
-@section('page-js')
-    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endsection
