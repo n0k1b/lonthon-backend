@@ -28,11 +28,13 @@ class ContentController extends Controller
     {
         try {
             $user_id = 1;
-            $category_subcategory_map = CategorySubcategoryGenreMap::where('category_id', $request->category_id)
-                ->where('subcategory_id', $request->sub_category_id)
-                ->where('genre_id', $request->genre_id)
-                ->first();
+            $category_subcategory_map = CategorySubcategoryGenreMap::where([
+                'category_id' => $request->category_id,
+                'subcategory_id' => $request->sub_category_id,
+                'genre_id' => $request->genre_id,
+            ])->first();
 
+            $author = implode(',', $request->author);
             DB::beginTransaction();
 
             // Handle thumbnail image upload
@@ -46,20 +48,23 @@ class ContentController extends Controller
             : null;
 
             // Create new content instance
-            $content = new Content([
+            $contentData = [
                 'user_id' => $user_id,
                 'category_sub_category_map_id' => $category_subcategory_map->id,
                 'title' => $request->title,
+                'author' => $author,
                 'thumbnail_image' => $thumbnail_image,
                 'feature_image' => $feature_image,
                 'summary' => $request->summary,
                 'type' => $request->type,
                 'media_type' => $request->content_type,
-            ]);
+            ];
 
-            if (!$content->save()) {
+            $content = Content::create($contentData);
+
+            if (!$content) {
                 DB::rollBack();
-                return $this->successJsonResponse('Content not uploaded');
+                return $this->errorJsonResponse('Content not uploaded');
             }
 
             // Handle content media upload
@@ -95,7 +100,7 @@ class ContentController extends Controller
             return $this->successJsonResponse('Content uploaded successfully', $content);
         } catch (Throwable $th) {
             DB::rollBack();
-            return $this->successJsonResponse('Content not uploaded', $th);
+            return $this->errorJsonResponse('Content not uploaded');
         }
     }
 
