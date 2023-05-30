@@ -8,6 +8,7 @@ use App\Models\ContentMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Log;
 use Throwable;
 
 class ContentController extends Controller
@@ -64,7 +65,7 @@ class ContentController extends Controller
 
             if (!$content) {
                 DB::rollBack();
-                return $this->errorJsonResponse('Content not uploaded');
+                return $this->errorJsonResponse('Content not uploaded2');
             }
 
             // Handle content media upload
@@ -99,8 +100,9 @@ class ContentController extends Controller
             DB::commit();
             return $this->successJsonResponse('Content uploaded successfully', $content);
         } catch (Throwable $th) {
+            Log::info($th);
             DB::rollBack();
-            return $this->errorJsonResponse('Content not uploaded');
+            return $this->errorJsonResponse('Content not uploaded3');
         }
     }
 
