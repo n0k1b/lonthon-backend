@@ -77,7 +77,7 @@ class ContentController extends Controller
                     'media_type' => $request->content_type,
                     'media_text' => $request->content,
                 ];
-            } elseif ($request->content_type == 3) {
+            } elseif ($request->content_type == 1) {
                 $contentMediaItems[] = [
                     'content_id' => $content->id,
                     'media_type' => $request->content_type,
