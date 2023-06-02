@@ -23,7 +23,7 @@ class ContentController extends Controller
     {
         $data = Content::with('media')->findOrFail($id);
 
-        if ($data->content_type == 1) {
+        if ($data->media_type == 1) {
             $pdfContents = file_get_contents($data->media->media_url);
             $data->media->media_url = base64_encode($pdfContents);
         }
