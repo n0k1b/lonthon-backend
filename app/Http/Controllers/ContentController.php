@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CategorySubcategoryGenreMap;
 use App\Models\Content;
 use App\Models\ContentMedia;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -24,8 +25,10 @@ class ContentController extends Controller
         $data = Content::with('media')->findOrFail($id);
 
         if ($data->media_type == 1) {
-            $pdfContents = file_get_contents($data->media->media_url);
-            $data->media->media_url = base64_encode($pdfContents);
+            $client = new Client();
+            $response = $client->get($data->media[0]->media_url);
+            $pdfContents = $response->getBody()->getContents();
+            $data->media[0]->media_url = base64_encode($pdfContents);
         }
 
         return $this->successJsonResponse('Content data found', $data);
