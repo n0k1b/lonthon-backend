@@ -111,12 +111,15 @@ class ContentController extends Controller
         if ($type == 'image') {
             $filename = $directory . '/' . $user_id . '_' . uniqid() . '.png';
             $image = str_replace('data:image/jpeg;base64,', '', $base64Image);
+            $image = str_replace('data:image/png;base64,', '', $base64Image);
             $image = str_replace(' ', '+', $image);
             Storage::disk('public')->put($filename, base64_decode($image));
             return url('storage/' . $filename);
         } else {
             $filename = $directory . '/' . $user_id . '_' . uniqid() . '.pdf';
-            Storage::disk('public')->put($filename, base64_decode($base64Image));
+            $image = str_replace('data:application/pdf;base64,', '', $base64Image);
+            $image = str_replace(' ', '+', $image);
+            Storage::disk('public')->put($filename, base64_decode($image));
             return url('storage/' . $filename);
         }
         // assuming all images are JPEGs
