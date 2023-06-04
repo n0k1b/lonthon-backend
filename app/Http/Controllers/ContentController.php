@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\CategorySubcategoryGenreMap;
 use App\Models\Content;
 use App\Models\ContentMedia;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Log;
 use Throwable;
 
 class ContentController extends Controller
@@ -21,6 +23,14 @@ class ContentController extends Controller
     public function show($id)
     {
         $data = Content::with('media')->findOrFail($id);
+
+        if ($data->media_type == 1) {
+            $client = new Client();
+            $response = $client->get($data->media[0]->media_url);
+            $pdfContents = $response->getBody()->getContents();
+            $data->media[0]->media_url = base64_encode($pdfContents);
+        }
+
         return $this->successJsonResponse('Content data found', $data);
     }
 
@@ -64,7 +74,7 @@ class ContentController extends Controller
 
             if (!$content) {
                 DB::rollBack();
-                return $this->errorJsonResponse('Content not uploaded');
+                return $this->errorJsonResponse('Content not uploaded2');
             }
 
             // Handle content media upload
@@ -76,7 +86,7 @@ class ContentController extends Controller
                     'media_type' => $request->content_type,
                     'media_text' => $request->content,
                 ];
-            } elseif ($request->content_type == 3) {
+            } elseif ($request->content_type == 1) {
                 $contentMediaItems[] = [
                     'content_id' => $content->id,
                     'media_type' => $request->content_type,
@@ -99,8 +109,9 @@ class ContentController extends Controller
             DB::commit();
             return $this->successJsonResponse('Content uploaded successfully', $content);
         } catch (Throwable $th) {
+            Log::info($th);
             DB::rollBack();
-            return $this->errorJsonResponse('Content not uploaded');
+            return $this->errorJsonResponse('Content not uploaded3');
         }
     }
 
@@ -126,12 +137,15 @@ class ContentController extends Controller
         if ($type == 'image') {
             $filename = $directory . '/' . $user_id . '_' . uniqid() . '.png';
             $image = str_replace('data:image/jpeg;base64,', '', $base64Image);
+            $image = str_replace('data:image/png;base64,', '', $base64Image);
             $image = str_replace(' ', '+', $image);
             Storage::disk('public')->put($filename, base64_decode($image));
             return url('storage/' . $filename);
         } else {
             $filename = $directory . '/' . $user_id . '_' . uniqid() . '.pdf';
-            Storage::disk('public')->put($filename, base64_decode($base64Image));
+            $image = str_replace('data:application/pdf;base64,', '', $base64Image);
+            $image = str_replace(' ', '+', $image);
+            Storage::disk('public')->put($filename, base64_decode($image));
             return url('storage/' . $filename);
         }
         // assuming all images are JPEGs
