@@ -104,6 +104,23 @@ class ContentController extends Controller
         }
     }
 
+    public function contentByCategory()
+    {
+        $categoryMaps = CategorySubcategoryGenreMap::with('category')->get();
+        $data = [];
+        foreach ($categoryMaps as $categoryMap) {
+            $content = Content::where('category_sub_category_map_id', $categoryMap->id)->get();
+            $data[] = [
+                'id' => $categoryMap->category->id,
+                'category_name' => $categoryMap->category->name,
+                'content' => $content,
+            ];
+
+        }
+
+        return $this->successJsonResponse('Content data found', $data);
+    }
+
     private function processBase64Image($base64Image, $user_id, $directory, $type = 'image')
     {
         if ($type == 'image') {
