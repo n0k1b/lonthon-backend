@@ -120,11 +120,20 @@ class ContentController extends Controller
         $categoryMaps = CategorySubcategoryGenreMap::with('category')->get();
         $data = [];
         foreach ($categoryMaps as $categoryMap) {
-            $content = Content::where('category_sub_category_map_id', $categoryMap->id)->get();
+            $contents = Content::with('media')->where('category_sub_category_map_id', $categoryMap->id)->get();
+            foreach ($contents as $content) {
+                if ($content->media_type == 1) {
+                    $client = new Client();
+                    $response = $client->get($content->media[0]->media_url);
+                    $pdfContents = $response->getBody()->getContents();
+                    $content->media[0]->media_url = base64_encode($pdfContents);
+                }
+            }
+
             $data[] = [
                 'id' => $categoryMap->category->id,
                 'category_name' => $categoryMap->category->name,
-                'content' => $content,
+                'content' => $contents,
             ];
 
         }
