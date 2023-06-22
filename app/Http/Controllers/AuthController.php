@@ -43,9 +43,9 @@ class AuthController extends Controller
                 ->generate($request->email);
 
             // Code to send OTP to user email
-            $this->sendEmail($otp->token, $input['email']);
+            //$this->sendEmail($otp->token, $input['email']);
 
-            return $this->successJsonResponse('Registration Successfull', $user);
+            return $this->successJsonResponse('Registration Successfull', ['user' => $user, 'otp' => $otp->token]);
             // return response()->json(['success' => $success], 200);
 
         } catch (Throwable $th) {
