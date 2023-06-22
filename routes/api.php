@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\HomepageController;
@@ -25,6 +26,9 @@ Route::get('business-settings', [BusinessSettingController::class, 'index']);
 Route::post('content-upload', [ContentController::class, 'store']);
 Route::get('content-by-category', [ContentController::class, 'contentByCategory']);
 Route::apiResource('content', ContentController::class);
+Route::post('signup', [AuthController::class, 'signup']);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('verifyOtp', [AuthController::class, 'verifyOtp']);
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
