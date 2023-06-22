@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Seshac\Otp\Otp;
+use Throwable;
 
 class AuthController extends Controller
 {
@@ -47,9 +48,9 @@ class AuthController extends Controller
             return $this->successJsonResponse('Registration Successfull', $user);
             // return response()->json(['success' => $success], 200);
 
-        } catch (\Exception $e) {
-            Log::error('Registration failed: ' . $e->getMessage());
-            return $this->exceptionJsonResponse($e->getMessage());
+        } catch (Throwable $th) {
+            Log::error('Registration failed: ' . $th);
+            return $this->exceptionJsonResponse($th);
         }
     }
 
@@ -75,8 +76,8 @@ class AuthController extends Controller
                 return $this->errorJsonResponse('Invalid OTP');
                 //return response()->json(['error' => 'Invalid OTP'], 400);
             }
-        } catch (\Exception $e) {
-            return $this->exceptionJsonResponse($e);
+        } catch (Throwable $th) {
+            return $this->exceptionJsonResponse($th);
         }
     }
 
@@ -90,8 +91,8 @@ class AuthController extends Controller
             } else {
                 return $this->errorJsonResponse('Invalid Credential');
             }
-        } catch (\Exception $e) {
-            return $this->exceptionJsonResponse($e);
+        } catch (Throwable $th) {
+            return $this->exceptionJsonResponse($th);
         }
     }
 
