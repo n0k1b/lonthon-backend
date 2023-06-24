@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\ContentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,11 @@ Route::apiResource('content', ContentController::class);
 Route::post('signup', [AuthController::class, 'signup']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('verifyOtp', [AuthController::class, 'verifyOtp']);
+Route::group(['middleware' => ['auth:api']], function () {
+
+    Route::get('dashboard', [DashboardController::class, 'index']);
+
+});
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
