@@ -23,5 +23,14 @@ class Content extends Model
     {
         return $this->hasMany(ContentMedia::class, 'content_id');
     }
+    public function getThumbnailImageAttribute($value)
+    {
+        return env('do_url') . $value;
+    }
+
+    public function getFeatureImageAttribute($value)
+    {
+        return env('do_url') . $value;
+    }
 
 }

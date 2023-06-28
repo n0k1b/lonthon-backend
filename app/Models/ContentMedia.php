@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ContentMedia extends Model
 {
     use HasFactory;
+    public function getMediaUrlAttribute($value)
+    {
+        return env('do_url') . $value;
+    }
 }

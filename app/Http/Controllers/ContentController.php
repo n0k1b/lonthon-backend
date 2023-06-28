@@ -36,6 +36,7 @@ class ContentController extends Controller
 
     public function store(Request $request)
     {
+        Log::info($request->author);
         try {
             $user_id = 1;
             $category_subcategory_map = CategorySubcategoryGenreMap::where([
@@ -49,12 +50,12 @@ class ContentController extends Controller
 
             // Handle thumbnail image upload
             $thumbnail_image = $request->has('thumbnail_image')
-            ? $this->processBase64Image($request->thumbnail_image, $user_id, 'thumbnail')
+            ? $this->uploadMedia($request->thumbnail_image, 'thumbnail')
             : null;
 
             // Handle feature image upload
             $feature_image = $request->has('feature_image')
-            ? $this->processBase64Image($request->feature_image, $user_id, 'feature')
+            ? $this->uploadMedia($request->feature_image, 'feature')
             : null;
 
             // Create new content instance
@@ -79,8 +80,13 @@ class ContentController extends Controller
 
             // Handle content media upload
             $contentMediaItems = [];
-
-            if ($request->content_type == 2) {
+            if ($request->content_type == 4) {
+                $contentMediaItems[] = [
+                    'content_id' => $content->id,
+                    'media_type' => $request->content_type,
+                    'media_url' => $this->uploadMedia($request->content, 'video'),
+                ];
+            } elseif ($request->content_type == 2) {
                 $contentMediaItems[] = [
                     'content_id' => $content->id,
                     'media_type' => $request->content_type,
@@ -90,14 +96,14 @@ class ContentController extends Controller
                 $contentMediaItems[] = [
                     'content_id' => $content->id,
                     'media_type' => $request->content_type,
-                    'media_url' => $this->processBase64Image($request->content, $user_id, 'media_document', 'pdf'),
+                    'media_url' => $this->uploadMedia($request->content, 'document'),
                 ];
             } elseif ($request->content_type == 0) {
                 foreach ($request->content as $media) {
                     $contentMediaItems[] = [
                         'content_id' => $content->id,
                         'media_type' => $request->content_type,
-                        'media_url' => $this->processBase64Image($media, $user_id, 'media_image'),
+                        'media_url' => $this->uploadMedia($media, 'image'),
                     ];
                 }
             }
@@ -139,6 +145,12 @@ class ContentController extends Controller
         }
 
         return $this->successJsonResponse('Content data found', $data);
+    }
+
+    private function uploadMedia($mediaFile, $directory)
+    {
+        $path = Storage::disk('do_spaces')->put('test/content/' . $directory, $mediaFile, 'public');
+        return $path;
     }
 
     private function processBase64Image($base64Image, $user_id, $directory, $type = 'image')

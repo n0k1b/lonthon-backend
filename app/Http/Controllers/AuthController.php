@@ -61,20 +61,15 @@ class AuthController extends Controller
 
     public function verifyOtp(Request $request)
     {
-        // Log::info(Otp::match($request->otp, $request->email));
-        // Log::info($request->otp);
-        // Log::info($request->email);
 
         try {
             $user = User::where('email', $request->email)->first();
 
             if ($user && Otp::validate($request->email, $request->otp)) {
-                // OTP matched successfully
                 return $this->successJsonResponse('OTP Verified', ['token' => $user->createToken('LaravelApp')->accessToken, 'user' => $user]);
-                // return response()->json(, 200);
+
             } else {
                 return $this->errorJsonResponse('Invalid OTP');
-                //return response()->json(['error' => 'Invalid OTP'], 400);
             }
         } catch (Throwable $th) {
             return $this->exceptionJsonResponse($th);
