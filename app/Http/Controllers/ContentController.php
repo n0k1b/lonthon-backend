@@ -98,9 +98,9 @@ class ContentController extends Controller
                     'media_url' => $this->uploadMedia($request->content, 'document'),
                 ];
             } elseif ($request->content_type == 0) {
-                $contentItems = json_decode($request->content); // Decode the JSON string back into an array
+                $contentFiles = $request->file('content'); // Decode the JSON string back into an array
 
-                foreach ($contentItems as $media) {
+                foreach ($contentFiles as $media) {
                     $contentMediaItems[] = [
                         'content_id' => $content->id,
                         'media_type' => $request->content_type,
