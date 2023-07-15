@@ -45,7 +45,6 @@ class ContentController extends Controller
                 'genre_id' => $request->genre_id,
             ])->first();
 
-
             DB::beginTransaction();
 
             // Handle thumbnail image upload
@@ -99,7 +98,9 @@ class ContentController extends Controller
                     'media_url' => $this->uploadMedia($request->content, 'document'),
                 ];
             } elseif ($request->content_type == 0) {
-                foreach ($request->content as $media) {
+                $contentItems = json_decode($request->content); // Decode the JSON string back into an array
+
+                foreach ($contentItems as $media) {
                     $contentMediaItems[] = [
                         'content_id' => $content->id,
                         'media_type' => $request->content_type,
