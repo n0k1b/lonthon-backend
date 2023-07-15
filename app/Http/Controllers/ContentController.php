@@ -45,7 +45,7 @@ class ContentController extends Controller
                 'genre_id' => $request->genre_id,
             ])->first();
 
-            $author = implode(',', $request->author);
+
             DB::beginTransaction();
 
             // Handle thumbnail image upload
@@ -63,7 +63,7 @@ class ContentController extends Controller
                 'user_id' => $user_id,
                 'category_sub_category_map_id' => $category_subcategory_map->id,
                 'title' => $request->title,
-                'author' => $author,
+                'author' => $request->author,
                 'thumbnail_image' => $thumbnail_image,
                 'feature_image' => $feature_image,
                 'summary' => $request->summary,
