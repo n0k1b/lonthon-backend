@@ -23,7 +23,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title d-flex">Favicon</h4>
                                         <input type="file" class="dropify" name="favicon"
-                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{ asset('storage/' . $data?->favicon) }}" />
+                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{ $data?->favicon }}" />
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title d-flex">Logo</h4>
                                         <input type="file" class="dropify" name="logo"
-                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{ asset('storage/' . $data?->logo) }}" />
+                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{  $data?->logo }}" />
                                     </div>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title d-flex">Homepage Banner Image</h4>
                                         <input type="file" class="dropify" name="homepage_banner_image"
-                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{ asset('storage/' . $data?->homepage_banner_image) }}" />
+                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{ $data?->homepage_banner_image}}" />
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title d-flex">Homepage Promotional Banner 1</h4>
                                         <input type="file" class="dropify" name="homepage_promotional_banner1"
-                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{ asset('storage/' . $data?->homepage_promotional_banner1) }}" />
+                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{ $data?->homepage_promotional_banner1 }}" />
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                     <div class="card-body">
                                         <h4 class="card-title d-flex">Homepage Promotional Banner 2</h4>
                                         <input type="file" class="dropify" name="homepage_promotional_banner2"
-                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{ asset('storage/' . $data?->homepage_promotional_banner2) }}" />
+                                            data-height="150" data-max-file-size="1000kb" data-default-file="{{  $data?->homepage_promotional_banner2 }}" />
                                     </div>
                                 </div>
                             </div>
