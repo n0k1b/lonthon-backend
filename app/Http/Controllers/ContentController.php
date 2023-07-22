@@ -36,7 +36,7 @@ class ContentController extends Controller
 
     public function store(Request $request)
     {
-        Log::info($request->author);
+
         try {
             $user_id = 1;
             $category_subcategory_map = CategorySubcategoryGenreMap::where([
@@ -98,8 +98,9 @@ class ContentController extends Controller
                     'media_url' => $this->uploadMedia($request->content, 'document'),
                 ];
             } elseif ($request->content_type == 0) {
-                $contentFiles = $request->file('content'); // Decode the JSON string back into an array
-
+                $contentFiles = $request->file('content');
+                Log::info($contentFiles);
+                Log::info($request);
                 foreach ($contentFiles as $media) {
                     $contentMediaItems[] = [
                         'content_id' => $content->id,
@@ -146,6 +147,31 @@ class ContentController extends Controller
         }
 
         return $this->successJsonResponse('Content data found', $data);
+    }
+
+    public function fetchContentFromCategory($id)
+    {
+        $categoryMaps = CategorySubcategoryGenreMap::where('category_id', $id)->get();
+        $data = [];
+        foreach ($categoryMaps as $categoryMap) {
+            $contents = Content::with('media')->where('category_sub_category_map_id', $categoryMap->id)->get();
+            foreach ($contents as $content) {
+                if ($content->media_type == 1) {
+                    $client = new Client();
+                    $response = $client->get($content->media[0]->media_url);
+                    $pdfContents = $response->getBody()->getContents();
+                    $content->media[0]->media_url = base64_encode($pdfContents);
+                }
+            }
+
+            $data[] = [
+                'id' => $categoryMap->category->id,
+                'category_name' => $categoryMap->category->name,
+                'content' => $contents,
+            ];
+
+        }
+
     }
 
     private function uploadMedia($mediaFile, $directory)
