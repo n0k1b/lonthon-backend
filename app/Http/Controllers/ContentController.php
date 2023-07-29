@@ -179,6 +179,7 @@ class ContentController extends Controller
     {
         $categoryMaps = CategorySubcategoryGenreMap::where('subcategory_id', $id)->get();
         $data = [];
+        $genre = [];
         foreach ($categoryMaps as $categoryMap) {
             $contents = Content::with('media')->where('category_sub_category_map_id', $categoryMap->id)->get();
             foreach ($contents as $content) {
@@ -194,11 +195,17 @@ class ContentController extends Controller
                 'subcategory_id' => $categoryMap->subCategory->id,
                 'subcategory_name' => $categoryMap->subCategory->name,
                 'category_name' => $categoryMap->category->name,
+                'genre_name' => $categoryMap->genre->name,
                 'content' => $contents,
+            ];
+            $genre[] = [
+                'id' => $categoryMap->id,
+                'genre' => $categoryMap->genre->name,
             ];
 
         }
-        return $this->successJsonResponse('Content data found', $data);
+        $finalData = ['content_data' => $data, 'genre' => $genre];
+        return $this->successJsonResponse('Content data found', $finalData);
 
     }
 
