@@ -165,7 +165,7 @@ class ContentController extends Controller
             }
 
             $data[] = [
-                'id' => $categoryMap->category->id,
+                'category_id' => $categoryMap->category->id,
                 'category_name' => $categoryMap->category->name,
                 'content' => $contents,
             ];
@@ -191,8 +191,9 @@ class ContentController extends Controller
             }
 
             $data[] = [
-                'id' => $categoryMap->subCategory->id,
-                'category_name' => $categoryMap->subCategory->name,
+                'subcategory_id' => $categoryMap->subCategory->id,
+                'subcategory_name' => $categoryMap->subCategory->name,
+                'category_name' => $categoryMap->category->name,
                 'content' => $contents,
             ];
 
@@ -217,8 +218,9 @@ class ContentController extends Controller
             }
 
             $data[] = [
-                'id' => $categoryMap->genre->id,
-                'category_name' => $categoryMap->genre->name,
+                'genre_id' => $categoryMap->genre->id,
+                'category_name' => $categoryMap->category->name,
+                'genre_name' => $categoryMap->genre->name,
                 'content' => $contents,
             ];
 
