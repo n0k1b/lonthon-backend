@@ -171,6 +171,59 @@ class ContentController extends Controller
             ];
 
         }
+        return $this->successJsonResponse('Content data found', $data);
+
+    }
+
+    public function fetchContentFromSubCategory($id)
+    {
+        $categoryMaps = CategorySubcategoryGenreMap::where('subcategory_id', $id)->get();
+        $data = [];
+        foreach ($categoryMaps as $categoryMap) {
+            $contents = Content::with('media')->where('category_sub_category_map_id', $categoryMap->id)->get();
+            foreach ($contents as $content) {
+                if ($content->media_type == 1) {
+                    $client = new Client();
+                    $response = $client->get($content->media[0]->media_url);
+                    $pdfContents = $response->getBody()->getContents();
+                    $content->media[0]->media_url = base64_encode($pdfContents);
+                }
+            }
+
+            $data[] = [
+                'id' => $categoryMap->subCategory->id,
+                'category_name' => $categoryMap->subCategory->name,
+                'content' => $contents,
+            ];
+
+        }
+        return $this->successJsonResponse('Content data found', $data);
+
+    }
+
+    public function fetchContentFromGenre($id)
+    {
+        $categoryMaps = CategorySubcategoryGenreMap::where('genre_id', $id)->get();
+        $data = [];
+        foreach ($categoryMaps as $categoryMap) {
+            $contents = Content::with('media')->where('category_sub_category_map_id', $categoryMap->id)->get();
+            foreach ($contents as $content) {
+                if ($content->media_type == 1) {
+                    $client = new Client();
+                    $response = $client->get($content->media[0]->media_url);
+                    $pdfContents = $response->getBody()->getContents();
+                    $content->media[0]->media_url = base64_encode($pdfContents);
+                }
+            }
+
+            $data[] = [
+                'id' => $categoryMap->genre->id,
+                'category_name' => $categoryMap->genre->name,
+                'content' => $contents,
+            ];
+
+        }
+        return $this->successJsonResponse('Content data found', $data);
 
     }
 
