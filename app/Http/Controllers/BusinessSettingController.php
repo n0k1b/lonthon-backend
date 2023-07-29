@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BannerImageGallery;
 use App\Models\BusinessSetting;
+use App\Models\ThumbnailImageGallery;
 use Illuminate\Http\Request;
 
 class BusinessSettingController extends Controller
@@ -16,15 +18,15 @@ class BusinessSettingController extends Controller
             } else {
                 return $this->errorJsonResponse("Business settings data not found");
             }
-        } catch (\Throwable$th) {
+        } catch (\Throwable $th) {
             return $this->exceptionJsonResponse($th);
         }
     }
 
     public function textEdit()
     {
-        $data = BusinessSetting::select('homepage_title','homepage_description','about_us','email','contact_info1','contact_info2','contact_info3','facebook_url','instagram_url','twitter_url','terms_and_condition')->first();
-        return view("admin.business settings.text")->with("data",$data);
+        $data = BusinessSetting::select('homepage_title', 'homepage_description', 'about_us', 'email', 'contact_info1', 'contact_info2', 'contact_info3', 'facebook_url', 'instagram_url', 'twitter_url', 'terms_and_condition')->first();
+        return view("admin.business settings.text")->with("data", $data);
     }
 
     public function textUpdate(Request $req)
@@ -47,45 +49,56 @@ class BusinessSettingController extends Controller
 
     public function mediaEdit()
     {
-        $data = BusinessSetting::select('favicon','homepage_banner_image','homepage_promotional_banner1','homepage_promotional_banner2','logo')->first();
-        return view("admin.business settings.media")->with("data",$data);
+        $data = BusinessSetting::select('favicon', 'homepage_banner_image', 'homepage_promotional_banner1', 'homepage_promotional_banner2', 'logo')->first();
+        return view("admin.business settings.media")->with("data", $data);
     }
 
     public function mediaUpdate(Request $req)
     {
         $data = BusinessSetting::find(1);
 
-        if($req->file('favicon')){
+        if ($req->file('favicon')) {
             $favicon_file = $req->file('favicon');
-            $favicon_filename = "favicon.".$favicon_file->getClientOriginalExtension();
+            $favicon_filename = "favicon." . $favicon_file->getClientOriginalExtension();
             $data->favicon = $favicon_file->storeAs('/settings', $favicon_filename, 'public');
         }
 
-        if($req->file('logo')){
+        if ($req->file('logo')) {
             $logo_file = $req->file('logo');
-            $logo_file_name = "logo.".$logo_file->getClientOriginalExtension();
+            $logo_file_name = "logo." . $logo_file->getClientOriginalExtension();
             $data->logo = $logo_file->storeAs('/settings', $logo_file_name, 'public');
         }
 
-        if($req->file('homepage_banner_image')){
+        if ($req->file('homepage_banner_image')) {
             $homepage_banner_image_file = $req->file('homepage_banner_image');
-            $homepage_banner_image_file_name = "homepage_banner_image.".$homepage_banner_image_file->getClientOriginalExtension();
+            $homepage_banner_image_file_name = "homepage_banner_image." . $homepage_banner_image_file->getClientOriginalExtension();
             $data->homepage_banner_image = $homepage_banner_image_file->storeAs('/settings', $homepage_banner_image_file_name, 'public');
         }
 
-        if($req->file('homepage_promotional_banner1')){
+        if ($req->file('homepage_promotional_banner1')) {
             $homepage_promotional_banner1_file = $req->file('homepage_promotional_banner1');
-            $homepage_promotional_banner1_file_name = "homepage_promotional_banner1.".$homepage_promotional_banner1_file->getClientOriginalExtension();
+            $homepage_promotional_banner1_file_name = "homepage_promotional_banner1." . $homepage_promotional_banner1_file->getClientOriginalExtension();
             $data->homepage_promotional_banner1 = $homepage_promotional_banner1_file->storeAs('/settings', $homepage_promotional_banner1_file_name, 'public');
         }
 
-        if($req->file('homepage_promotional_banner2')){
+        if ($req->file('homepage_promotional_banner2')) {
             $homepage_promotional_banner2_file = $req->file('homepage_promotional_banner2');
-            $homepage_promotional_banner2_file_name = "homepage_promotional_banner2.".$homepage_promotional_banner2_file->getClientOriginalExtension();
+            $homepage_promotional_banner2_file_name = "homepage_promotional_banner2." . $homepage_promotional_banner2_file->getClientOriginalExtension();
             $data->homepage_promotional_banner2 = $homepage_promotional_banner2_file->storeAs('/settings', $homepage_promotional_banner2_file_name, 'public');
         }
 
         $data->save();
         return back();
+    }
+
+    public function thumbnailImageGallery()
+    {
+        $gallery = ThumbnailImageGallery::get();
+        return $this->successJsonResponse('Thumbanail image gallery found', $gallery);
+    }
+    public function bannerImageGallery()
+    {
+        $gallery = BannerImageGallery::get();
+        return $this->successJsonResponse('Banner image gallery found', $gallery);
     }
 }

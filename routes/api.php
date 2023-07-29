@@ -30,6 +30,8 @@ Route::apiResource('content', ContentController::class);
 Route::post('signup', [AuthController::class, 'signup']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('verifyOtp', [AuthController::class, 'verifyOtp']);
+Route::get('thumbnailImageGallery', [BusinessSettingController::class, 'thumbnailImageGallery']);
+Route::get('bannerImageGallery', [BusinessSettingController::class, 'bannerImageGallery']);
 Route::group(['middleware' => ['auth:api']], function () {
 
     Route::get('dashboard', [DashboardController::class, 'index']);
