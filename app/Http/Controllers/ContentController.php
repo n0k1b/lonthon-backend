@@ -116,7 +116,7 @@ class ContentController extends Controller
             DB::commit();
             return $this->successJsonResponse('Content uploaded successfully', $content);
         } catch (Throwable $th) {
-            Log::info($th);
+            Log::error($th);
             DB::rollBack();
             return $this->errorJsonResponse('Content not uploaded3');
         }
