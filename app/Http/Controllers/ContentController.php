@@ -92,15 +92,14 @@ class ContentController extends Controller
                     'media_text' => $request->content,
                 ];
             } elseif ($request->content_type == 1) {
+                $contentFiles = $request->file('content');
                 $contentMediaItems[] = [
                     'content_id' => $content->id,
                     'media_type' => $request->content_type,
-                    'media_url' => $this->uploadMedia($request->content, 'document'),
+                    'media_url' => $this->uploadMedia($contentFiles, 'document'),
                 ];
             } elseif ($request->content_type == 0) {
                 $contentFiles = $request->file('content');
-                Log::info($contentFiles);
-                Log::info($request);
                 foreach ($contentFiles as $media) {
                     $contentMediaItems[] = [
                         'content_id' => $content->id,
@@ -117,7 +116,7 @@ class ContentController extends Controller
             DB::commit();
             return $this->successJsonResponse('Content uploaded successfully', $content);
         } catch (Throwable $th) {
-            Log::info($th);
+            Log::error($th);
             DB::rollBack();
             return $this->errorJsonResponse('Content not uploaded3');
         }
