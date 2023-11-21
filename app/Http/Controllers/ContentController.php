@@ -26,9 +26,10 @@ class ContentController extends Controller
 
         if ($data->media_type == 1) {
             $client = new Client();
-            $response = $client->get($data->media[0]->media_url);
+            $response = $client->get(env('do_url') . $data->media[0]->media_url);
             $pdfContents = $response->getBody()->getContents();
             $data->media[0]->media_url = base64_encode($pdfContents);
+            $data->media[0]->pdf_url = base64_encode($pdfContents);
         }
 
         return $this->successJsonResponse('Content data found', $data);
@@ -36,7 +37,7 @@ class ContentController extends Controller
 
     public function store(Request $request)
     {
-
+        Log::info($request->all());
         try {
             $user_id = 1;
             $category_subcategory_map = CategorySubcategoryGenreMap::where([

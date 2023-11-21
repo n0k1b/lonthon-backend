@@ -6,6 +6,7 @@ use App\Models\BannerImageGallery;
 use App\Models\BusinessSetting;
 use App\Models\ThumbnailImageGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BusinessSettingController extends Controller
 {
@@ -53,43 +54,51 @@ class BusinessSettingController extends Controller
         return view("admin.business settings.media")->with("data", $data);
     }
 
+
+
     public function mediaUpdate(Request $req)
     {
         $data = BusinessSetting::find(1);
 
-        if ($req->file('favicon')) {
+        if ($req->hasFile('favicon')) {
             $favicon_file = $req->file('favicon');
             $favicon_filename = "favicon." . $favicon_file->getClientOriginalExtension();
-            $data->favicon = $favicon_file->storeAs('/settings', $favicon_filename, 'public');
+            Storage::disk('public')->put('settings/' . $favicon_filename, file_get_contents($favicon_file));
+            $data->favicon = 'settings/' . $favicon_filename;
         }
 
-        if ($req->file('logo')) {
+        if ($req->hasFile('logo')) {
             $logo_file = $req->file('logo');
             $logo_file_name = "logo." . $logo_file->getClientOriginalExtension();
-            $data->logo = $logo_file->storeAs('/settings', $logo_file_name, 'public');
+            Storage::disk('public')->put('settings/' . $logo_file_name, file_get_contents($logo_file));
+            $data->logo = 'settings/' . $logo_file_name;
         }
 
-        if ($req->file('homepage_banner_image')) {
+        if ($req->hasFile('homepage_banner_image')) {
             $homepage_banner_image_file = $req->file('homepage_banner_image');
             $homepage_banner_image_file_name = "homepage_banner_image." . $homepage_banner_image_file->getClientOriginalExtension();
-            $data->homepage_banner_image = $homepage_banner_image_file->storeAs('/settings', $homepage_banner_image_file_name, 'public');
+            Storage::disk('public')->put('settings/' . $homepage_banner_image_file_name, file_get_contents($homepage_banner_image_file));
+            $data->homepage_banner_image = 'settings/' . $homepage_banner_image_file_name;
         }
 
-        if ($req->file('homepage_promotional_banner1')) {
+        if ($req->hasFile('homepage_promotional_banner1')) {
             $homepage_promotional_banner1_file = $req->file('homepage_promotional_banner1');
             $homepage_promotional_banner1_file_name = "homepage_promotional_banner1." . $homepage_promotional_banner1_file->getClientOriginalExtension();
-            $data->homepage_promotional_banner1 = $homepage_promotional_banner1_file->storeAs('/settings', $homepage_promotional_banner1_file_name, 'public');
+            Storage::disk('public')->put('settings/' . $homepage_promotional_banner1_file_name, file_get_contents($homepage_promotional_banner1_file));
+            $data->homepage_promotional_banner1 = 'settings/' . $homepage_promotional_banner1_file_name;
         }
 
-        if ($req->file('homepage_promotional_banner2')) {
+        if ($req->hasFile('homepage_promotional_banner2')) {
             $homepage_promotional_banner2_file = $req->file('homepage_promotional_banner2');
             $homepage_promotional_banner2_file_name = "homepage_promotional_banner2." . $homepage_promotional_banner2_file->getClientOriginalExtension();
-            $data->homepage_promotional_banner2 = $homepage_promotional_banner2_file->storeAs('/settings', $homepage_promotional_banner2_file_name, 'public');
+            Storage::disk('public')->put('settings/' . $homepage_promotional_banner2_file_name, file_get_contents($homepage_promotional_banner2_file));
+            $data->homepage_promotional_banner2 = 'settings/' . $homepage_promotional_banner2_file_name;
         }
 
         $data->save();
         return back();
     }
+
 
     public function thumbnailImageGallery()
     {
