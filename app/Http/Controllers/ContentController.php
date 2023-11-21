@@ -48,17 +48,17 @@ class ContentController extends Controller
 
             DB::beginTransaction();
 
-            // Handle thumbnail image upload
+
             $thumbnail_image = $request->has('thumbnail_image')
             ? $this->uploadMedia($request->thumbnail_image, 'thumbnail')
             : null;
 
-            // Handle feature image upload
+
             $feature_image = $request->has('feature_image')
             ? $this->uploadMedia($request->feature_image, 'feature')
             : null;
 
-            // Create new content instance
+
             $contentData = [
                 'user_id' => $user_id,
                 'category_sub_category_map_id' => $category_subcategory_map->id,
@@ -78,7 +78,7 @@ class ContentController extends Controller
                 return $this->errorJsonResponse('Content not uploaded2');
             }
 
-            // Handle content media upload
+
             $contentMediaItems = [];
             if ($request->content_type == 4) {
                 $contentMediaItems[] = [
