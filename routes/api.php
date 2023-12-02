@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,9 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('verifyOtp', [AuthController::class, 'verifyOtp']);
 Route::get('thumbnailImageGallery', [BusinessSettingController::class, 'thumbnailImageGallery']);
 Route::get('bannerImageGallery', [BusinessSettingController::class, 'bannerImageGallery']);
+Route::post('initiate-payment', [PaymentController::class, 'initiatePayment']);
+
+
 Route::group(['middleware' => ['auth:api']], function () {
 
     Route::get('dashboard', [DashboardController::class, 'index']);

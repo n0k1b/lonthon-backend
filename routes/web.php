@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\SubcategoryController;
 use App\Http\Controllers\BusinessSettingController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,5 +87,6 @@ Route::prefix('/genres')->group(function () {
     // Route::get('/restore/{id}', [GenreController::class, "restore"])->name("genres-restore");
     // Route::get('/forced/{id}', [GenreController::class, "forced"])->name("genres-forced");
 });
-
+Route::post('success', [PaymentController::class, 'success']);
+Route::get('cancel', [PaymentController::class, 'cancel']);
 require __DIR__ . '/auth.php';

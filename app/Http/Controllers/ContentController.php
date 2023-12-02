@@ -37,14 +37,10 @@ class ContentController extends Controller
 
     public function store(Request $request)
     {
-        Log::info($request->all());
+
         try {
-            $user_id = 1;
-            $category_subcategory_map = CategorySubcategoryGenreMap::where([
-                'category_id' => $request->category_id,
-                'subcategory_id' => $request->sub_category_id,
-                'genre_id' => $request->genre_id,
-            ])->first();
+            $user_id = auth('api')->user()->id;
+
 
             DB::beginTransaction();
 
@@ -61,7 +57,9 @@ class ContentController extends Controller
 
             $contentData = [
                 'user_id' => $user_id,
-                'category_sub_category_map_id' => $category_subcategory_map->id,
+                'category_id' => $request->category_id,
+                'subcategory_id' => $request->sub_category_id,
+                'genre_id' => $request->genre_id,
                 'title' => $request->title,
                 'author' => $request->author,
                 'thumbnail_image' => $thumbnail_image,
@@ -127,8 +125,13 @@ class ContentController extends Controller
     {
         $categoryMaps = CategorySubcategoryGenreMap::with('category')->get();
         $data = [];
+
         foreach ($categoryMaps as $categoryMap) {
-            $contents = Content::with('media')->where('category_sub_category_map_id', $categoryMap->id)->get();
+            // Fetch contents directly using category_id
+            $contents = Content::with('media')
+                ->where('category_id', $categoryMap->category_id)
+                ->get();
+
             foreach ($contents as $content) {
                 if ($content->media_type == 1) {
                     $client = new Client();
@@ -143,7 +146,6 @@ class ContentController extends Controller
                 'category_name' => $categoryMap->category->name,
                 'content' => $contents,
             ];
-
         }
 
         return $this->successJsonResponse('Content data found', $data);
@@ -180,8 +182,14 @@ class ContentController extends Controller
         $categoryMaps = CategorySubcategoryGenreMap::where('subcategory_id', $id)->get();
         $data = [];
         $genre = [];
+
         foreach ($categoryMaps as $categoryMap) {
-            $contents = Content::with('media')->where('category_sub_category_map_id', $categoryMap->id)->get();
+            // Fetch contents directly using category_id and genre_id
+            $contents = Content::with('media')
+                ->where('category_id', $categoryMap->category_id)
+                ->where('genre_id', $categoryMap->genre_id)
+                ->get();
+
             foreach ($contents as $content) {
                 if ($content->media_type == 1) {
                     $client = new Client();
@@ -198,12 +206,13 @@ class ContentController extends Controller
                 'genre_name' => $categoryMap->genre->name,
                 'content' => $contents,
             ];
+
             $genre[] = [
                 'id' => $categoryMap->id,
                 'genre' => $categoryMap->genre->name,
             ];
-
         }
+
         $finalData = ['content_data' => $data, 'genre' => $genre];
         return $this->successJsonResponse('Content data found', $finalData);
 
