@@ -24,5 +24,6 @@ class CategorySubcategoryGenreMap extends Model
     {
         return $this->belongsTo(Genre::class, 'genre_id', 'id');
     }
+    
 
 }

@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\admin\AdsController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\ContentController;
 use App\Http\Controllers\admin\GenreController;
 use App\Http\Controllers\admin\SubcategoryController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\BusinessSettingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PaymentController;
@@ -23,6 +25,8 @@ Route::get('/', function () {
     return view("admin.dashboard");
 });
 
+
+
 // business settings
 Route::prefix('settings')->group(function () {
     Route::prefix('text')->group(function () {
@@ -34,6 +38,35 @@ Route::prefix('settings')->group(function () {
         Route::post('/update', [BusinessSettingController::class, "mediaUpdate"]);
     });
 });
+
+
+
+
+// ads
+
+Route::get('/edit/{id}/ads', [AdsController::class, "edit"])->name("ads-editing");
+Route::prefix('/ads')->group(function () {
+    Route::get('/', [AdsController::class, "index"]);
+    Route::get('/create', [AdsController::class, "create"]);
+    Route::post('/insert', [AdsController::class, "store"])->name("ads-inserting");
+    Route::get('/delete/{id}', [AdsController::class, "delete"])->name("ads-deleting");
+    Route::post('/update/{id}', [AdsController::class, "update"])->name("ads-updating");
+
+});
+
+//user
+
+
+Route::prefix('/user')->group(function () {
+    Route::get('/', [UserController::class, "index"]);
+    Route::post('/show', [UserController::class, "store"]);
+
+});
+
+
+
+
+
 
 // contents
 Route::get('/content', [ContentController::class, "show"]);
@@ -48,6 +81,15 @@ Route::prefix('/content')->group(function () {
     // Route::get('/forced/{id}', [ContentController::class, "forced"])->name("content-forced");
 });
 
+
+
+
+
+
+
+
+
+
 // category
 
 Route::get('/edit/{id}/category', [CategoryController::class, "edit"])->name("category-editing");
@@ -61,6 +103,8 @@ Route::prefix('/category')->group(function () {
     // Route::get('/restore/{id}', [CategoryController::class, "restore"])->name("category-restore");
     // Route::get('/forced/{id}', [CategoryController::class, "forced"])->name("category-forced");
 });
+
+
 
 // subcategory
 Route::get('/create-sub', [SubcategoryController::class, "create"]);

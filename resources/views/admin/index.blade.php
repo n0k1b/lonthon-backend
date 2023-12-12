@@ -25,12 +25,34 @@
             <!-- partial:../../partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/') }}">
-                            <i class="fa fa-home menu-icon"></i>
-                            <span class="menu-title">Dashboard</span>
-                        </a>
-                    </li>
+
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('/') }}">
+                <i class="fa fa-home menu-icon"></i>
+                <span class="menu-title">Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ads-layouts" aria-expanded="false"
+                aria-controls="ads-layouts">
+                <i class="fab fa-trello menu-icon"></i>
+                <span class="menu-title">Ads</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ads-layouts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ url('ads') }}">All ads
+
+                    </a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ url('ads/create') }}">Create
+
+                    </a></li>
+
+                </ul>
+            </div>
+        </li>
+
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#settings-layouts" aria-expanded="false"
                             aria-controls="settings-layouts">
@@ -117,6 +139,13 @@
                                         href="{{url('subcategory/trash')}}">Trash Subcategories</a></li> --}}
                             </ul>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('user') }}">
+                            <i class="fab fa-trello menu-icon"></i>
+                            <span class="menu-title">User</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
