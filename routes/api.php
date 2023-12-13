@@ -26,6 +26,8 @@ Route::get('category/{id}', [HomepageController::class, 'getSubCategory']);
 Route::get('sub-category/{id}', [HomepageController::class, 'getGenre']);
 Route::get('business-settings', [BusinessSettingController::class, 'index']);
 Route::post('content-upload', [ContentController::class, 'store']);
+Route::post('/content-update/{id}', [ContentController::class, 'update']);
+
 Route::get('content-by-category', [ContentController::class, 'contentByCategory']);
 Route::apiResource('content', ContentController::class);
 Route::get('fetchContentFromCategory/{id}', [ContentController::class, 'fetchContentFromCategory']);

@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Log;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class ContentController extends Controller
@@ -46,13 +46,13 @@ class ContentController extends Controller
 
 
             $thumbnail_image = $request->has('thumbnail_image')
-            ? $this->uploadMedia($request->thumbnail_image, 'thumbnail')
-            : null;
+                ? $this->uploadMedia($request->thumbnail_image, 'thumbnail')
+                : null;
 
 
             $feature_image = $request->has('feature_image')
-            ? $this->uploadMedia($request->feature_image, 'feature')
-            : null;
+                ? $this->uploadMedia($request->feature_image, 'feature')
+                : null;
 
 
             $contentData = [
@@ -121,6 +121,23 @@ class ContentController extends Controller
         }
     }
 
+    public function update(Request $request, $resourceId)
+    {
+        try {
+            // Get the JSON data from the request body
+            $requestData = $request->json()->all();
+
+            // Log the received data
+            Log::info('Received data:', ['data' => $requestData]);
+           
+            // Return the response
+            return response()->json(['status' => 'success', 'message' => 'Resource updated successfully', "_id" => $resourceId, "data" => $requestData]);
+        } catch (Throwable $th) {
+            Log::error($th);
+            return $this->errorJsonResponse('content not updated');
+        }
+    }
+
     public function contentByCategory()
     {
         $categoryMaps = CategorySubcategoryGenreMap::with('category')->get();
@@ -171,10 +188,8 @@ class ContentController extends Controller
                 'category_name' => $categoryMap->category->name,
                 'content' => $contents,
             ];
-
         }
         return $this->successJsonResponse('Content data found', $data);
-
     }
 
     public function fetchContentFromSubCategory($id)
@@ -215,7 +230,6 @@ class ContentController extends Controller
 
         $finalData = ['content_data' => $data, 'genre' => $genre];
         return $this->successJsonResponse('Content data found', $finalData);
-
     }
 
     public function fetchContentFromGenre($id)
@@ -239,10 +253,8 @@ class ContentController extends Controller
                 'genre_name' => $categoryMap->genre->name,
                 'content' => $contents,
             ];
-
         }
         return $this->successJsonResponse('Content data found', $data);
-
     }
 
     private function uploadMedia($mediaFile, $directory)
