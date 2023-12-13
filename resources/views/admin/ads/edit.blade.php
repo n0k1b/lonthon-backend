@@ -32,31 +32,31 @@
                         <div class= "row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputUsername1">Header Name</label>
-                                    <input name="headername" value="{{$ads->HeaderName}}" type="text" class="form-control" id="exampleInputUsername1"
+                                    <label for="exampleInputUsername1">Type</label>
+                                    <input name="type" value="{{$ads->Type}}" type="text" class="form-control" id="exampleInputUsername1"
                                     placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="exampleInputUsername1">Header Banner</label>
-                                    <input name="headerimg" type="file" class="form-control" id="exampleInputUsername1"
+                                    <label for="exampleInputUsername1">Image</label>
+                                    <input name="Banner" type="file" class="form-control" id="exampleInputUsername1"
                                     placeholder="">
                                 </div>
 
                             </div>
                             <div class="col-md-4">
-                                <img src="{{ asset('storage/'.$ads->headerImg)}}"style="height: 100%;
+                                <img src="{{ asset('storage/'.$ads->Banner)}}"style="height: 100%;
                                 border-radius: inherit; width: 100%; padding:5px;" alt="">
                             </div>
-                          <div class="col-md-4">
+                          {{-- <div class="col-md-4">
                               <div class="form-group">
                                   <label for="exampleInputUsername1">Footer Name</label>
                                   <input name="footername" type="text" class="form-control" id="exampleInputUsername1"
                                   value="{{$ads->FooterName}}"   placeholder="">
                               </div>
-                          </div>
-                          <div class="col-md-4">
+                          </div> --}}
+                          {{-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="exampleInputUsername1">footer Banner</label>
                                     <input name="footerimg" type="file" class="form-control" id="exampleInputUsername1"
@@ -66,7 +66,7 @@
                             <div class="col-md-4">
                                 <img src="{{ asset('storage/'.$ads->footerImg)}}"style="height: 100%;
                                 border-radius: inherit; width: 100%; padding:5px;" alt="">
-                            </div>
+                            </div> --}}
                             <div class="col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary mr-2">Update</button>
                             </div>

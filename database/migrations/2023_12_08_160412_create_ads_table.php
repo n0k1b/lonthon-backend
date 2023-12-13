@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('ads', function (Blueprint $table) {
             $table->id();
-            $table->string("HeaderName",255)->nullable();
-            $table->string("FooterName",255)->nullable();
-            $table->string("headerImg",255)->nullable();
-            $table->string("footerImg", 255)->nullable();
+            $table->string("Type",255)->nullable();
+            $table->string("Banner",255)->nullable();
+            // $table->string("FooterName",255)->nullable();
+
+            // $table->string("footerImg", 255)->nullable();
 
             $table->timestamps();
         });

@@ -51,17 +51,17 @@
                                 @endforeach
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    {{-- <td>
+                                {{-- <tr>
+
                                         @if ($categories->currentPage() != 0 && $categories->previousPageUrl())
                                             <a href="{{ $categories->previousPageUrl() }}"
                                                 class="btn btn-primary">Previous</a>
                                         @endif
                                         @if ($categories->hasMorePages())
                                             <a href="{{ $categories->nextPageUrl() }}" class="btn btn-primary">Next</a>
-                                        @endif --}}
+                                        @endif
                                     </td>
-                                </tr>
+                                </tr> --}}
                             </tfoot>
                         </table>
                     </div>

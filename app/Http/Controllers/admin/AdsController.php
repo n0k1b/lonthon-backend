@@ -25,25 +25,24 @@ class AdsController extends Controller
   public function store(Request $request)
   {
       $request->validate([
-        "headername"=>'required',
-        "headerimg"=>'required',
-        "footername"=>'required',
-        "footerimg"=>'required'
+        "Type"=>'required',
+        "Banner"=>'required',
+
       ]);
       $adsModel = new AdsModel;
-      $adsModel->HeaderName = $request->headername;
-      $adsModel->FooterName = $request->footername;
-      if ($request->hasFile('headerimg')) {
-          $image_path = date('Y-m-d-H_i_s').'_' .$request->file('headerimg')->getClientOriginalName();
-            $request->file('headerimg')->storeAs('banner',$image_path,['disk' => 'public']);
-            $adsModel->headerImg = 'banner/'.$image_path;
+      $adsModel->Type = $request->Type;
+    //   $adsModel->FooterName = $request->footername;
+      if ($request->hasFile('Banner')) {
+          $image_path = date('Y-m-d-H_i_s').'_' .$request->file('Banner')->getClientOriginalName();
+            $request->file('Banner')->storeAs('Banner',$image_path,['disk' => 'public']);
+            $adsModel->Banner = 'banner/'.$image_path;
         }
 
-        if ($request->hasFile('footerimg')) {
-            $image_path = date('Y-m-d-H_i_s').'_' .$request->file('footerimg')->getClientOriginalName();
-            $request->file('footerimg')->storeAs('banner',$image_path,['disk' => 'public']);
-            $adsModel->footerImg = 'banner/'.$image_path;
-        }
+        // if ($request->hasFile('footerimg')) {
+        //     $image_path = date('Y-m-d-H_i_s').'_' .$request->file('footerimg')->getClientOriginalName();
+        //     $request->file('footerimg')->storeAs('banner',$image_path,['disk' => 'public']);
+        //     $adsModel->footerImg = 'banner/'.$image_path;
+        // }
 
       if($adsModel->save())
       {
@@ -66,31 +65,31 @@ class AdsController extends Controller
  public function update(Request $request, $id)
  {
      $ads = AdsModel::find($id);
-     $ads->HeaderName = $request->headername;
-      $ads->FooterName = $request->footername;
+     $ads->Type = $request->type;
+    //   $ads->FooterName = $request->footername;
 
 
-     if ($request->hasFile('headerimg')) {
-        $image_path = date('Y-m-d-H_i_s').'_' .$request->file('headerimg')->getClientOriginalName();
-          $request->file('headerimg')->storeAs('banner',$image_path,['disk' => 'public']);
-          $ads->headerImg = 'banner/'.$image_path;
+     if ($request->hasFile('Banner')) {
+        $image_path = date('Y-m-d-H_i_s').'_' .$request->file('Banner')->getClientOriginalName();
+          $request->file('Banner')->storeAs('banner',$image_path,['disk' => 'public']);
+          $ads->Banner= 'banner/'.$image_path;
       }
 
-      if ($request->hasFile('footerimg')) {
-          $image_path = date('Y-m-d-H_i_s').'_' .$request->file('footerimg')->getClientOriginalName();
-          $request->file('footerimg')->storeAs('banner',$image_path,['disk' => 'public']);
-          $ads->footerImg = 'banner/'.$image_path;
-      }
+    //   if ($request->hasFile('footerimg')) {
+    //       $image_path = date('Y-m-d-H_i_s').'_' .$request->file('footerimg')->getClientOriginalName();
+    //       $request->file('footerimg')->storeAs('banner',$image_path,['disk' => 'public']);
+    //       $ads->footerImg = 'banner/'.$image_path;
+    //   }
 
     if($ads->save())
     {
         return back()->with('success', 'Banner added successfully!');
-        return redirect('show');
+
     }else{
         return back()->with('error', 'Opps! Something went wrong');
 
     }
-
+    return redirect('show');
  }
 
  public function delete(Request $request, $id)

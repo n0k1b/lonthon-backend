@@ -33,33 +33,33 @@
                       <div class= "row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputUsername1">Header Name</label>
-                                <input name="headername" type="text" class="form-control" id="exampleInputUsername1"
+                                <label for="exampleInputUsername1">Type</label>
+                                <input name="Type" type="text" class="form-control" id="exampleInputUsername1"
                                 placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputUsername1">Header Banner</label>
-                                <input name="headerimg" type="file" class="form-control"  id="exampleInputUsername1"
+                                <label for="exampleInputUsername1">Image</label>
+                                <input name="Banner" type="file" class="form-control"  id="exampleInputUsername1"
                                 placeholder="Header Banner">
                             </div>
 
                         </div>
-                      <div class="col-md-6">
+                      {{-- <div class="col-md-6">
                           <div class="form-group">
                               <label for="exampleInputUsername1">Footer Name</label>
                               <input name="footername" type="text" class="form-control" id="exampleInputUsername1"
                                   placeholder="">
                           </div>
-                      </div>
-                      <div class="col-md-6">
+                      </div> --}}
+                      {{-- <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputUsername1">footer Banner</label>
                                 <input name="footerimg" type="file" class="form-control" id="exampleInputUsername1"
                                     placeholder="">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         </div>

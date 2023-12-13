@@ -21,10 +21,10 @@ Ads
     <thead>
         <tr>
             <th>No #</th>
-            <th>header</th>
+            <th>Type</th>
             <th>Image</th>
-            <th>Footer</th>
-            <th>Image</th>
+            {{-- <th>Footer</th>
+            <th>Image</th> --}}
 
 
             <th>#</th>
@@ -36,12 +36,13 @@ Ads
         @foreach ($ads as $ad)
             <tr>
                 <td>{{ $ad->id }}</td>
-                <td><h5>{{ $ad->HeaderName }}</h5></td>
-                <td> <img src="{{ asset('storage/'.$ad->headerImg)}}"style="height: 100%;
-                    border-radius: inherit; width: 100%;" alt=""></td>
-                <td><h5>{{ $ad->FooterName }}</h5></td>
+                <td><h5 >{{ $ad->Type }}</h5></td>
+                <td> <img src="{{ asset('storage/'.$ad->Banner)}}"style="height: 50%;
+                    border-radius: inherit; width: 50%;" alt=""></td>
+                {{-- <td><h5>{{ $ad->FooterName }}</h5></td>
+
                 <td><img src="{{ asset('storage/'.$ad->footerImg)}}"style="height: 100%;
-                    border-radius: inherit; width: 100%;" alt=""></td>
+                    border-radius: inherit; width: 100%;" alt=""></td> --}}
 
                 <td>
                     <a href="{{ route('ads-editing', ['id' => $ad->id]) }}"
