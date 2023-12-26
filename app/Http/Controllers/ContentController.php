@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\CategorySubcategoryGenreMap;
 use App\Models\Content;
 use App\Models\ContentMedia;
+use App\Models\Category;
+use App\Models\DownloadedContent;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,7 +24,7 @@ class ContentController extends Controller
     }
     public function show($id)
     {
-        $data = Content::with('media')->findOrFail($id);
+        $data = Content::with('media', 'category', 'subCategory', 'genre')->findOrFail($id);
 
         if ($data->media_type == 1) {
             $client = new Client();
@@ -31,7 +33,16 @@ class ContentController extends Controller
             $data->media[0]->media_url = base64_encode($pdfContents);
             $data->media[0]->pdf_url = base64_encode($pdfContents);
         }
+        $downloadStatus = 0;
+        if (auth('api')->check()) {
+            $userId = auth('api')->user()->id;
+            $downloadStatus = DownloadedContent::where('user_id', $userId)->where('content_id', $id)->first();
+            if ($downloadStatus) {
+                $downloadStatus = 1;
+            }
 
+        }
+        $data->download_status = $downloadStatus;
         return $this->successJsonResponse('Content data found', $data);
     }
 
@@ -129,7 +140,7 @@ class ContentController extends Controller
 
             // Log the received data
             Log::info('Received data:', ['data' => $requestData]);
-           
+
             // Return the response
             return response()->json(['status' => 'success', 'message' => 'Resource updated successfully', "_id" => $resourceId, "data" => $requestData]);
         } catch (Throwable $th) {
@@ -140,29 +151,17 @@ class ContentController extends Controller
 
     public function contentByCategory()
     {
-        $categoryMaps = CategorySubcategoryGenreMap::with('category')->get();
+        $categories = Category::with('contents')->get();
         $data = [];
-
-        foreach ($categoryMaps as $categoryMap) {
-            // Fetch contents directly using category_id
-            $contents = Content::with('media')
-                ->where('category_id', $categoryMap->category_id)
-                ->get();
-
-            foreach ($contents as $content) {
-                if ($content->media_type == 1) {
-                    $client = new Client();
-                    $response = $client->get($content->media[0]->media_url);
-                    $pdfContents = $response->getBody()->getContents();
-                    $content->media[0]->media_url = base64_encode($pdfContents);
-                }
+        foreach ($categories as $category) {
+            if (sizeof($category->contents) > 0) {
+                $data[] = [
+                    'id' => $category->id,
+                    'category_name' => $category->name,
+                    'content' => $category->contents,
+                ];
             }
 
-            $data[] = [
-                'id' => $categoryMap->category->id,
-                'category_name' => $categoryMap->category->name,
-                'content' => $contents,
-            ];
         }
 
         return $this->successJsonResponse('Content data found', $data);

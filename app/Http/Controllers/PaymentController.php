@@ -6,27 +6,33 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Log;
 use GuzzleHttp\Client;
+use App\Models\DownloadedContent;
+use App\Models\TransactionDetails;
+use App\Models\Content;
 
 class PaymentController extends Controller
 {
     //
     public function initiatePayment(Request $request)
     {
+
+        $userId = auth('api')->user()->id;
         $store_id = 'nokib5fa913a013777';
         $store_password = 'nokib5fa913a013777@ssl';
-
+        $contentId = $request->contentId;
+        $content = Content::where('id', $contentId)->first();
+        $price = $content->price;
         $client = new Client();
-
-        // Prepare payment data
+        $transationId = $userId . str_pad(mt_rand(1, 99999999), 8, '0', STR_PAD_LEFT);
         $paymentData = [
             'store_id' => $store_id,
             'store_passwd' => $store_password,
-            'total_amount' => 100,
+            'total_amount' => $price,
             'currency' => 'BDT',
-            'tran_id' => 'REF123',
-            'success_url' => 'http://127.0.0.1:8080/success',
-            'fail_url' => 'http://127.0.0.1:8080/fail',
-            'cancel_url' => 'http://127.0.0.1:8080/cancel',
+            'tran_id' => $transationId,
+            'success_url' => 'http://127.0.0.1:8000/success',
+            'fail_url' => 'http://127.0.0.1:8000/fail',
+            'cancel_url' => 'http://127.0.0.1:8000/cancel',
             'cus_name' => 'Customer Name',
             'cus_email' => 'cust@yahoo.com',
             'cus_add1' => 'Dhaka',
@@ -45,15 +51,15 @@ class PaymentController extends Controller
             'ship_postcode' => '1000',
             'ship_country' => 'Bangladesh',
             'multi_card_name' => 'mastercard,visacard,amexcard',
-            'value_a' => 1,
-            'value_b' => 'ref002_B',
+            'value_a' => $contentId,
+            'value_b' => $userId,
             'value_c' => 'ref003_C',
             'value_d' => 'ref004_D',
             'shipping_method' => 'No',
             'product_name' => 'Test',
             'product_category' => 'test',
             'product_profile' => 'general',
-            'product_id' => 1,
+            'product_id' => $contentId,
         ];
 
         try {
@@ -63,12 +69,8 @@ class PaymentController extends Controller
 
             $responseData = json_decode($response->getBody(), true);
 
-            // Handle the SSLCommerz response
-            // Log::info($responseData);
-
             return $this->successJsonResponse('test', ['redirectUrl' => $responseData['GatewayPageURL']]);
-            // Redirect the user to the payment gateway
-            //  return redirect($responseData['GatewayPageURL']);
+
         } catch (\Exception $e) {
             // Handle exceptions
             Log::error('Error initiating payment: ' . $e->getMessage());
@@ -79,8 +81,35 @@ class PaymentController extends Controller
     public function success(Request $request)
     {
 
-        Log::info($request->all());
-        return redirect('http://localhost:3000/content/14');
+        $contentId = (int) $request->value_a;
+        $tranId = $request->tran_id;
+        $amount = $request->amount;
+        $transactionDate = $request->tran_date;
+        $cardIssuer = $request->card_issuer;
+        $cardBrand = $request->card_brand;
+        $storeAmount = $request->store_amount;
+        $cardType = $request->card_type;
+        $userID = $request->value_b;
+
+        $transactionDetail = new TransactionDetails();
+        $transactionDetail->user_id = $userID;
+        $transactionDetail->content_id = $contentId;
+        $transactionDetail->tran_id = $tranId;
+        $transactionDetail->amount = $amount;
+        $transactionDetail->transaction_date = $transactionDate;
+        $transactionDetail->card_issuer = $cardIssuer;
+        $transactionDetail->card_brand = $cardBrand;
+        $transactionDetail->store_amount = $storeAmount;
+        $transactionDetail->card_type = $cardType;
+        $transactionDetail->save();
+
+
+        $downloadedContent = new DownloadedContent();
+        $downloadedContent->user_id = $userID;
+        $downloadedContent->content_id = $contentId;
+        $downloadedContent->save();
+
+        return redirect('http://localhost:3000/content/' . $contentId);
 
         // Extract necessary data from the callback
         // $transactionId = $request->input('tran_id');
