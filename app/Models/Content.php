@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Content extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'media_type' => 'integer',
+    ];
     protected $guarded = [];
     /**
      * Get the category that owns the Content
