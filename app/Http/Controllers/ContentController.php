@@ -151,7 +151,7 @@ class ContentController extends Controller
 
     public function contentByCategory()
     {
-        $categories = Category::with('contents')->get();
+        $categories = Category::with(['contents.category', 'contents.subCategory', 'contents.genre'])->get();
         $data = [];
         foreach ($categories as $category) {
             if (sizeof($category->contents) > 0) {
