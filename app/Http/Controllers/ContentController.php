@@ -172,7 +172,10 @@ class ContentController extends Controller
         $categoryMaps = CategorySubcategoryGenreMap::where('category_id', $id)->get();
         $data = [];
         foreach ($categoryMaps as $categoryMap) {
-            $contents = Content::with('media')->where('category_sub_category_map_id', $categoryMap->id)->get();
+            $contents = Content::with(['media', 'category', 'subCategory', 'genre'])
+                ->where('category_sub_category_map_id', $categoryMap->id)
+                ->get();
+
             foreach ($contents as $content) {
                 if ($content->media_type == 1) {
                     $client = new Client();

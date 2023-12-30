@@ -109,20 +109,7 @@ class PaymentController extends Controller
         $downloadedContent->content_id = $contentId;
         $downloadedContent->save();
 
-        return redirect('http://localhost:3000/content/' . $contentId);
+        return redirect('https:/lonthonaloy.com/content/' . $contentId);
 
-        // Extract necessary data from the callback
-        // $transactionId = $request->input('tran_id');
-        // $status = $request->input('status');
-
-        // // Perform any additional logic based on the success callback
-        // if ($status === 'VALID') {
-        //     // Payment was successful
-        //     // Add your logic here, e.g., update the database, send email, etc.
-        //     return view('success'); // Display a success view
-        // } else {
-        //     // Payment was not successful
-        //     return view('error'); // Display an error view
-        // }
     }
 }
