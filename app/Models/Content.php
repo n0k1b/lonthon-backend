@@ -12,6 +12,9 @@ class Content extends Model
 
     protected $casts = [
         'media_type' => 'integer',
+        'category_id' => 'integer',
+        'subcategory_id' => 'integer',,
+        'genre_id' => 'integer'
     ];
     protected $guarded = [];
     /**
