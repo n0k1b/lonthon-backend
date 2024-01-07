@@ -109,7 +109,7 @@ class PaymentController extends Controller
         $downloadedContent->content_id = $contentId;
         $downloadedContent->save();
 
-        return redirect('https://lonthonaloy.com/content/' . $contentId);
+        return redirect('https://lonthonaloy.com/#/content/' . $contentId);
 
 
     }
