@@ -36,7 +36,7 @@ class HomepageController extends Controller
     }
     public function getCategory()
     {
-        $data = Category::select('id', 'name', 'status')->get();
+        $data = Category::with('subcategories')->get();
         return $this->successJsonResponse('Category data found', $data);
     }
     public function getSubCategory($id)
