@@ -36,9 +36,30 @@ class HomepageController extends Controller
     }
     public function getCategory()
     {
-        $data = Category::with('subcategories')->get();
-        return $this->successJsonResponse('Category data found', $data);
+        $categories = Category::with('subcategories.subcategory')->get();
+
+        $formattedCategories = [];
+
+        foreach ($categories as $category) {
+            $formattedSubcategories = [];
+
+            foreach ($category->subcategories as $subcategory) {
+                $formattedSubcategories[] = [
+                    'name' => $subcategory->subcategory->name,
+                    'id' => $subcategory->subcategory->id,
+                ];
+            }
+
+            $formattedCategories[] = [
+                'label' => strtoupper($category->name), // Convert to uppercase as per the example
+                'id' => $category->id,
+                'submenu' => $formattedSubcategories,
+            ];
+        }
+
+        return $this->successJsonResponse('Category data found', $formattedCategories);
     }
+
     public function getSubCategory($id)
     {
         $data = Category::with('subcategories.subcategory')->where('id', $id)->first();
