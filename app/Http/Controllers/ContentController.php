@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\CategorySubcategoryGenreMap;
 use App\Models\Content;
 use App\Models\ContentMedia;
-use App\Models\Category;
 use App\Models\DownloadedContent;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class ContentController extends Controller
@@ -36,12 +36,13 @@ class ContentController extends Controller
         $downloadStatus = 0;
         if (auth('api')->check()) {
             $userId = auth('api')->user()->id;
-            $downloadStatus = DownloadedContent::where('user_id', $userId)->where('content_id', $id)->first();
-            if ($downloadStatus) {
+            $download = DownloadedContent::where('user_id', $userId)->where('content_id', $id)->first();
+            if ($download) {
                 $downloadStatus = 1;
             }
 
         }
+
         $data->download_status = $downloadStatus;
         return $this->successJsonResponse('Content data found', $data);
     }
@@ -52,19 +53,15 @@ class ContentController extends Controller
         try {
             $user_id = auth('api')->user()->id;
 
-
             DB::beginTransaction();
 
-
             $thumbnail_image = $request->has('thumbnail_image')
-                ? $this->uploadMedia($request->thumbnail_image, 'thumbnail')
-                : null;
-
+            ? $this->uploadMedia($request->thumbnail_image, 'thumbnail')
+            : null;
 
             $feature_image = $request->has('feature_image')
-                ? $this->uploadMedia($request->feature_image, 'feature')
-                : null;
-
+            ? $this->uploadMedia($request->feature_image, 'feature')
+            : null;
 
             $contentData = [
                 'user_id' => $user_id,
@@ -86,7 +83,6 @@ class ContentController extends Controller
                 DB::rollBack();
                 return $this->errorJsonResponse('Content not uploaded2');
             }
-
 
             $contentMediaItems = [];
             if ($request->content_type == 4) {
