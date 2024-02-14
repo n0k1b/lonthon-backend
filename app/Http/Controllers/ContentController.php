@@ -192,42 +192,11 @@ class ContentController extends Controller
 
     public function fetchContentFromSubCategory($id)
     {
-        $categoryMaps = CategorySubcategoryGenreMap::where('subcategory_id', $id)->get();
-        $data = [];
-        $genre = [];
-
-        foreach ($categoryMaps as $categoryMap) {
-            // Fetch contents directly using category_id and genre_id
-            $contents = Content::with('media')
-                ->where('category_id', $categoryMap->category_id)
-                ->where('genre_id', $categoryMap->genre_id)
-                ->get();
-
-            foreach ($contents as $content) {
-                if ($content->media_type == 1) {
-                    $client = new Client();
-                    $response = $client->get($content->media[0]->media_url);
-                    $pdfContents = $response->getBody()->getContents();
-                    $content->media[0]->media_url = base64_encode($pdfContents);
-                }
-            }
-
-            $data[] = [
-                'subcategory_id' => $categoryMap->subCategory->id,
-                'subcategory_name' => $categoryMap->subCategory->name,
-                'category_name' => $categoryMap->category->name,
-                'genre_name' => $categoryMap->genre->name,
-                'content' => $contents,
-            ];
-
-            $genre[] = [
-                'id' => $categoryMap->id,
-                'genre' => $categoryMap->genre->name,
-            ];
-        }
-
-        $finalData = ['content_data' => $data, 'genre' => $genre];
+        $contents = Content::with(['category', 'subCategory', 'genre'])->where('subcategory_id', $id)->get();
+        $genre = CategorySubcategoryGenreMap::where('subcategory_id', $id)->get();
+        $finalData = ['content_data' => $contents, 'genre' => $genre];
         return $this->successJsonResponse('Content data found', $finalData);
+
     }
 
     public function fetchContentFromGenre($id)
