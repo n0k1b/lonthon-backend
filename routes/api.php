@@ -5,9 +5,10 @@ use App\Http\Controllers\BusinessSettingController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\WithdrawController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::post('verifyOtp', [AuthController::class, 'verifyOtp']);
 Route::get('thumbnailImageGallery', [BusinessSettingController::class, 'thumbnailImageGallery']);
 Route::get('bannerImageGallery', [BusinessSettingController::class, 'bannerImageGallery']);
 Route::post('initiate-payment', [PaymentController::class, 'initiatePayment']);
-
+Route::get('withdraw-dashboard', [WithdrawController::class, 'withdrawDashboard']);
 
 Route::group(['middleware' => ['auth:api']], function () {
 

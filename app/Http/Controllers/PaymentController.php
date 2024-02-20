@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Log;
-use GuzzleHttp\Client;
+use App\Models\Content;
+use App\Models\creatorTransactionDetail;
 use App\Models\DownloadedContent;
 use App\Models\TransactionDetails;
-use App\Models\Content;
+use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use Log;
 
 class PaymentController extends Controller
 {
@@ -103,14 +103,22 @@ class PaymentController extends Controller
         $transactionDetail->card_type = $cardType;
         $transactionDetail->save();
 
-
+        $content = Content::find($contentId);
+        $creator_id = $content->user_id;
         $downloadedContent = new DownloadedContent();
         $downloadedContent->user_id = $userID;
         $downloadedContent->content_id = $contentId;
         $downloadedContent->save();
 
-        return redirect('https://lonthonaloy.com/#/content/' . $contentId);
+        $creatorTransactionDetail = new creatorTransactionDetail();
+        $creatorTransactionDetail->creator_id = $creator_id;
+        $creatorTransactionDetail->content_id = $contentId;
+        $creatorTransactionDetail->price = $amount;
+        $creatorTransactionDetail->transaction_type = 'credit';
 
+        $creatorTransactionDetail->save();
+
+        return redirect('https://lonthonaloy.com/#/content/' . $contentId);
 
     }
 }
