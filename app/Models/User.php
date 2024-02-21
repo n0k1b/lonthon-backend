@@ -40,8 +40,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $appends = ['balance'];
+
     public function contents()
     {
         $this->hasMany(Content::class);
     }
+
+    public function creatorTransactions()
+    {
+        return $this->hasMany(CreatorTransactionDetail::class, 'creator_id', 'id');
+    }
+
+    public function withdrawRequests()
+    {
+        return $this->hasMany(WithdrawRequest::class, 'user_id', 'id');
+    }
+
+    public function getBalanceAttribute()
+    {
+        $totalCreatorTransactions = $this->creatorTransactions()->sum('amount');
+        $totalWithdrawRequests = $this->withdrawRequests()->sum('amount');
+
+        return $totalCreatorTransactions - $totalWithdrawRequests;
+    }
+
 }

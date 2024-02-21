@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\creatorTransactionDetail;
+use App\Models\WithdrawRequest;
+use AWS\CRT\HTTP\Request;
 
 class WithdrawController extends Controller
 {
@@ -39,6 +41,28 @@ class WithdrawController extends Controller
             'balance' => $balance,
             'last_transactions' => $lastTransactions,
         ]);
+    }
+
+    public function withdrawRequest(Request $request)
+    {
+        $amount = $request->amount;
+        $type = $request->account_type;
+        $accountDetails = $request->account_details;
+        $user = auth('api')->user();
+
+        if ($amount > $user->balance) {
+            return $this->errorJsonResponse('Insufficient balance');
+        }
+        $accountDetailsSerialized = is_string($accountDetails) ? $accountDetails : json_encode($accountDetails);
+        $withdrawRequest = WithdrawRequest::create([
+            'user_id' => $user->id,
+            'amount' => $amount,
+            'account_type' => $type,
+            'account_details' => $accountDetailsSerialized,
+        ]);
+
+        return $this->successJsonResponse('Withdraw request send successfully', $withdrawRequest);
+
     }
 
 }
