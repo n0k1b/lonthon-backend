@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function creatorTransactions()
     {
-        return $this->hasMany(CreatorTransactionDetail::class, 'creator_id', 'id');
+        return $this->hasMany(creatorTransactionDetail::class, 'creator_id', 'id');
     }
 
     public function withdrawRequests()
