@@ -41,7 +41,7 @@ Route::get('thumbnailImageGallery', [BusinessSettingController::class, 'thumbnai
 Route::get('bannerImageGallery', [BusinessSettingController::class, 'bannerImageGallery']);
 Route::post('initiate-payment', [PaymentController::class, 'initiatePayment']);
 Route::get('withdraw-dashboard', [WithdrawController::class, 'withdrawDashboard']);
-Route::get('withdraw-request', [WithdrawController::class, 'withdrawRequest']);
+Route::post('withdraw-request', [WithdrawController::class, 'withdrawRequest']);
 
 Route::group(['middleware' => ['auth:api']], function () {
 
