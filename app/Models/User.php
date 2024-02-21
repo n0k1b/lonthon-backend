@@ -59,7 +59,7 @@ class User extends Authenticatable
 
     public function getBalanceAttribute()
     {
-        $totalCreatorTransactions = $this->creatorTransactions()->sum('amount');
+        $totalCreatorTransactions = $this->creatorTransactions()->sum('price');
         $totalWithdrawRequests = $this->withdrawRequests()->sum('amount');
 
         return $totalCreatorTransactions - $totalWithdrawRequests;
