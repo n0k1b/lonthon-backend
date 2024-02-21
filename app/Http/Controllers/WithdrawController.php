@@ -60,7 +60,12 @@ class WithdrawController extends Controller
             'account_type' => $type,
             'account_details' => $accountDetailsSerialized,
         ]);
+        $creatorTransactionDetail = new creatorTransactionDetail();
+        $creatorTransactionDetail->creator_id = $user->id;
+        $creatorTransactionDetail->price = $amount;
+        $creatorTransactionDetail->transaction_type = 'debit';
 
+        $creatorTransactionDetail->save();
         return $this->successJsonResponse('Withdraw request send successfully', $withdrawRequest);
 
     }
