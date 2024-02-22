@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\creatorTransactionDetail;
 use App\Models\WithdrawRequest;
-use AWS\CRT\HTTP\Request;
+use Illuminate\Http\Request;
 
 class WithdrawController extends Controller
 {
